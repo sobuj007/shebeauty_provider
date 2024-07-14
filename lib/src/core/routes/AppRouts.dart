@@ -1,0 +1,50 @@
+import 'package:get/get.dart';
+import '../../features/view/auth/login/screen/login_screen.dart';
+import '../../features/view/auth/signup_screen/presentation/view/signup_screen.dart';
+import '../../features/view/auth/signup_screen/presentation/view/signup_screen_set_information.dart';
+import '../../features/view/splash_screen/splash_screen.dart';
+
+abstract class AppRoutes {
+  AppRoutes._();
+  static const splash = _Path.Splash;
+  static const loginScreen = _Path.login;
+  static const signupScreen = _Path.signup;
+  static const signupScreenSetInformation = _Path.signupScreenSetInformation;
+}
+
+abstract class _Path {
+  _Path._();
+
+  static const Splash = "/splash";
+  static const login = "/login";
+  static const signup = "/signup";
+  static const signupScreenSetInformation = "/signupScreenSetInformation";
+}
+
+class AppPageRoutes {
+  AppPageRoutes._();
+
+  static const INITPage = _Path.Splash;
+  static final routes = [
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => const SplashScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.loginScreen,
+      page: () =>  LoginScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.signupScreen,
+      page: () =>  SignupScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.signupScreenSetInformation,
+      page: () =>  SignupScreenSetInformation(),
+      transition: Transition.cupertino,
+    ),
+  ];
+}

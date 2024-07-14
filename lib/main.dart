@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shebeauty_provider/src/core/di/app_component.dart';
+import 'package:shebeauty_provider/src/core/routes/AppRouts.dart';
 import 'package:sizer/sizer.dart';
 
-import 'routes/AppRouts.dart';
-
-
-void main() {
+void main() async{
+  await init();
   runApp(const SheBeauty());
 }
 class SheBeauty extends StatelessWidget {
@@ -15,8 +15,9 @@ class SheBeauty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    return Sizer(builder: (context,oriantation,screenType)=>  GetMaterialApp(
-      initialRoute: APpPageRoutes.INITPage,
-      getPages: APpPageRoutes.routes,
+     debugShowCheckedModeBanner: false,
+     initialRoute: AppRoutes.splash,
+     getPages: AppPageRoutes.routes,
      
     ));
   }
