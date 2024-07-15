@@ -6,4 +6,7 @@ class AppColors {
   static final Color appColor = HexColor('#6200EE');
   static final Color grey = Colors.grey;
   static final Color containerColor = HexColor("FFEDED");
+  static final Color deepGrey = HexColor("D9D9D9");
+  static final Color grey1 = HexColor("FAF8F8");
+  static final Color textFieldColor = HexColor("D9D9D9");
 }

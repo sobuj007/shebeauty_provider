@@ -10,4 +10,5 @@ class ProfileController extends GetxController{
   var storeNameController = TextEditingController().obs;
   var selectedValue = false.obs;
   var tradeLicenseVisility = false.obs;
+  var gender = 0.obs;
 }

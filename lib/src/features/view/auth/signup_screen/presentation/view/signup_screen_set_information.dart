@@ -6,10 +6,10 @@ import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_appbar.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
-
 import '../../../../../../core/di/app_component.dart';
 import '../../../../../../core/routes/AppRouts.dart';
 import '../../../../../../core/utils/app_colors.dart';
+import '../../../../../widgets/common_cached_network_image/common_cached_network_image.dart';
 import '../../../../../widgets/common_textField_widget/common_textfield_widget.dart';
 import '../../../../../widgets/custom_elevatedButton/custom_eleveted_button.dart';
 
@@ -21,6 +21,9 @@ class SignupScreenSetInformation extends StatelessWidget {
     return Obx(()=>Scaffold(
       appBar: CommonCustomAppBar(
         appbarTitle: "Expert's worker",
+        onTap: (){
+          Get.toNamed(AppRoutes.profile);
+        }
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -36,22 +39,7 @@ class SignupScreenSetInformation extends StatelessWidget {
                   SizedBox(
                     height: 75,
                     width: 74,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(500),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                        "https://www.shutterstock.com/image-photo/smiling-mature-man-wearing-spectacles-260nw-1432699253.jpg",
-                        fit: BoxFit.fill,
-                        placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                        errorWidget:
-                            (context, url, error) =>
-                        const Icon(
-                          Icons.person,
-                          size: 80,
-                        ),
-                      ),
-                    ),
+                    child: CommonCachedNetworkImage(imageUrl: "https://www.shutterstock.com/image-photo/smiling-mature-man-wearing-spectacles-260nw-1432699253.jpg",)
                   ),
                   10.pw,
                   Expanded(
@@ -199,7 +187,7 @@ class SignupScreenSetInformation extends StatelessWidget {
               CustomElevatedButton(
                 color: HexColor("D9D9D9"),
                 onPress: () {
-                  Get.toNamed(AppRoutes.profile);
+
                 },
 
                 text: const CustomText(

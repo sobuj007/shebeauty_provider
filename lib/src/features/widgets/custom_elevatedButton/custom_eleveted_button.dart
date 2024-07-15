@@ -5,9 +5,10 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? color;
   final HexColor? hexColor;
   final VoidCallback? onPress;
+  final double? borderRadiusValue;
   final text;
   const CustomElevatedButton(
-      {super.key, this.color, this.onPress, this.hexColor, this.text});
+      {super.key, this.color, this.onPress, this.hexColor, this.text, this.borderRadiusValue});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CustomElevatedButton extends StatelessWidget {
           minimumSize: Size(MediaQuery.of(context).size.width, 45),
           maximumSize: Size(MediaQuery.of(context).size.width, 45),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadiusValue ?? 8))),
       onPressed: onPress,
       child: text,
     );

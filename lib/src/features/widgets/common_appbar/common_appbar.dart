@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 class CommonCustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String appbarTitle;
-  const CommonCustomAppBar({super.key, required this.appbarTitle});
+  final VoidCallback? onTap;
+  const CommonCustomAppBar({super.key, required this.appbarTitle, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CommonCustomAppBar extends StatelessWidget implements PreferredSizeWidget{
         Get.back();
       }, icon: Icon(Icons.arrow_back_ios, size: 30,)),
       actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none, size: 21,))
+        IconButton(onPressed: onTap, icon: Icon(Icons.notifications_none, size: 21,))
       ],
     );
   }
