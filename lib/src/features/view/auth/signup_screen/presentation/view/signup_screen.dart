@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shebeauty_provider/src/core/utils/extensions/extensions.dart';
+import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/view/auth/login/controller/login_controller.dart';
 import 'package:shebeauty_provider/src/features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';

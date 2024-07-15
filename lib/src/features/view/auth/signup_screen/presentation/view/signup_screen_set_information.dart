@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shebeauty_provider/src/core/utils/appColors.dart';
-import 'package:shebeauty_provider/src/core/utils/extensions/extensions.dart';
+import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_appbar.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 
 import '../../../../../../core/di/app_component.dart';
 import '../../../../../../core/routes/AppRouts.dart';
+import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../widgets/common_textField_widget/common_textfield_widget.dart';
 import '../../../../../widgets/custom_elevatedButton/custom_eleveted_button.dart';
 
@@ -32,17 +33,29 @@ class SignupScreenSetInformation extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(500),
-                    child: Container(
-                      height: 74,
-                      width: 74,
-                      color: AppColors.deepGrey,
+                  SizedBox(
+                    height: 75,
+                    width: 74,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(500),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                        "https://www.shutterstock.com/image-photo/smiling-mature-man-wearing-spectacles-260nw-1432699253.jpg",
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                        errorWidget:
+                            (context, url, error) =>
+                        const Icon(
+                          Icons.person,
+                          size: 80,
+                        ),
+                      ),
                     ),
                   ),
                   10.pw,
                   Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: CommonTextfieldWidget(
                         hintText: "Enter name",
                         controller: controller.workerNameController.value,
@@ -130,24 +143,63 @@ class SignupScreenSetInformation extends StatelessWidget {
 
               CustomText(text: "Certificate Image", fontSize: 13, fontWeight: FontWeight.w400, letterSpacing: 0.15,),
               5.ph,
-              Row(
+              // Row(
+              //   children: [
+              //     Expanded(child: CustomContainer()),
+              //     10.pw,
+              //     Expanded(child: CustomContainer()),
+              //     10.pw,
+              //     Expanded(child: CustomContainer()),
+              //     10.pw,
+              //     Expanded(child: CustomContainer()),
+              //     10.pw,
+              //     Expanded(child: CustomContainer()),
+              //   ],
+              // ),
+
+              Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
                 children: [
-                  Expanded(child: CustomContainer()),
-                  10.pw,
-                  Expanded(child: CustomContainer()),
-                  10.pw,
-                  Expanded(child: CustomContainer()),
-                  10.pw,
-                  Expanded(child: CustomContainer()),
-                  10.pw,
-                  Expanded(child: CustomContainer()),
-                ],
+                  ...List.generate(controller.images.length, (index) {
+                    return GestureDetector(
+                      onTap: () => controller.showPicker(context, index),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: AppColors.buttonColor.withOpacity(0.5),
+                              border: Border.all(color: AppColors.buttonColor, width: 1)
+                          ),
+                          width: (MediaQuery.of(context).size.width / 5) - 16,
+                          height: 60,
+                          child: controller.images[index] != null
+                              ? Image.file(controller.images[index]!, fit: BoxFit.cover)
+                              : Center(
+                            child: Icon(Icons.add_photo_alternate, size: 22,),
+                          )
+                      ),
+                    );
+                  }),
+                  GestureDetector(
+                    onTap: controller.addContainer,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: AppColors.buttonColor.withOpacity(0.5),
+                          border: Border.all(color: AppColors.buttonColor, width: 1)
+                      ),
+                      width: (MediaQuery.of(context).size.width / 5) - 16,
+                      height: 60,
+                      child: Icon(Icons.add, color: Colors.black, size: 30),
+                    ),
+                  ),
+                ]
               ),
               40.ph,
               CustomElevatedButton(
                 color: HexColor("D9D9D9"),
                 onPress: () {
-                  // Get.toNamed(AppRoutes.signupScreenSetInformation);
+                  Get.toNamed(AppRoutes.profile);
                 },
 
                 text: const CustomText(
@@ -169,8 +221,8 @@ class SignupScreenSetInformation extends StatelessWidget {
       width: 60,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: AppColors.grey1.withOpacity(0.5),
-          border: Border.all(color: AppColors.deepGrey, width: 1)
+          color: AppColors.buttonColor.withOpacity(0.5),
+          border: Border.all(color: AppColors.buttonColor, width: 1)
       ),
       child: Center(
         child: Icon(Icons.add_photo_alternate, size: 22,),

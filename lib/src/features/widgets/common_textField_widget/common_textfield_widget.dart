@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/appColors.dart';
+import '../../../core/utils/app_colors.dart';
 
 class CommonTextfieldWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -32,14 +32,14 @@ class CommonTextfieldWidget extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(
-                color: AppColors.textFieldColor,
+                color: AppColors.grey,
                 width: 1.0,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(
-                color: AppColors.textFieldColor,
+                color: AppColors.grey,
                 width: 1.0,
               ),
             ),
