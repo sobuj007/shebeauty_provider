@@ -4,6 +4,8 @@ import 'package:shebeauty_provider/src/features/view/profile_screen/presentation
 import '../../features/view/auth/login/screen/login_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen_set_information.dart';
+import '../../features/view/homepage/presentation/view/screen/order_list_details_screen.dart';
+import '../../features/view/services/presentation/view/add_services.dart';
 import '../../features/view/homepage/presentation/view/screen/category_view_all_list.dart';
 import '../../features/view/homepage/presentation/view/screen/services_screen.dart';
 import '../../features/view/parent_page/parent_screen.dart';
@@ -20,6 +22,8 @@ abstract class AppRoutes {
   static const parentScreen = _Path.parentScreen;
   static const categoryList = _Path.categoryList;
   static const servicesScreen = _Path.servicesScreen;
+  static const addServicesScreen = _Path.addServicesScreen;
+  static const orderListDetailsScreen = _Path.orderListDetailsScreen;
 }
 
 abstract class _Path {
@@ -34,6 +38,8 @@ abstract class _Path {
   static const parentScreen = "/parentScreen";
   static const categoryList = "/categoryList";
   static const servicesScreen = "/servicesScreen";
+  static const addServicesScreen = "/addServicesScreen";
+  static const orderListDetailsScreen = "/orderListDetailsScreen";
 }
 
 class AppPageRoutes {
@@ -84,6 +90,16 @@ class AppPageRoutes {
     GetPage(
       name: AppRoutes.servicesScreen,
       page: () =>  ServicesScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.addServicesScreen,
+      page: () =>  AddServicesScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.orderListDetailsScreen,
+      page: () =>  OrderListDetailsScreen(),
       transition: Transition.cupertino,
     ),
   ];

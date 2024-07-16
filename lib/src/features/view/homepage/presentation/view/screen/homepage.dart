@@ -20,6 +20,7 @@ class HomepageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(
@@ -124,16 +125,21 @@ class HomepageScreen extends StatelessWidget {
                           fontSize: 16,
                           letterSpacing: 0.25,
                         ),
-                        CustomText(
-                          text: "View all",
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          letterSpacing: 0.25,
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(AppRoutes.orderListDetailsScreen);
+                          },
+                          child: CustomText(
+                            text: "View all",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            letterSpacing: 0.25,
+                          ),
                         ),
                       ],
                     ),
                     10.ph,
-                    OrderlistHomeWidget(),
+                    OrderlistHomeWidget(scrollDirection: Axis.horizontal,),
                   ],
                 ),
               ),

@@ -8,14 +8,15 @@ import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../widgets/common_cached_network_image/common_cached_network_image.dart';
 
 class OrderlistHomeWidget extends StatelessWidget {
-  const OrderlistHomeWidget({super.key});
+  final Axis scrollDirection;
+  const OrderlistHomeWidget({super.key, required this.scrollDirection});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 291,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
+          scrollDirection: scrollDirection,
           itemCount: 10,
           itemBuilder: (_, index) {
             return SizedBox(

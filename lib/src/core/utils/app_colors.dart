@@ -11,4 +11,6 @@ class AppColors {
   static final Color grey2 = HexColor("DAD5D5");
   static final Color textFieldColor = HexColor("D9D9D9");
   static final Color cardColor = HexColor("FAF8F8");
+  static final Color textColor = HexColor("6200EE");
+  static final Color slideMeroon = HexColor("F1E7E7");
 }

@@ -23,10 +23,11 @@ class CategoryViewAllList extends StatelessWidget {
     print("height $itemWidth");
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CommonCustomAppBar(
         appbarTitle: "My Category",
         onTap: () {
-          Get.toNamed(AppRoutes.servicesScreen);
+          Get.toNamed(AppRoutes.addServicesScreen);
         },
         icon: const Icon(Icons.add_box),
         leadingText: "ADD",
