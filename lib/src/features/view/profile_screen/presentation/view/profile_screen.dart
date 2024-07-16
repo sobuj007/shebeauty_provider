@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: CommonCustomAppBar(appbarTitle: "Profile"),
+          appBar: const CommonCustomAppBar(appbarTitle: "Profile"),
           body: Stack(
             children: [
               Column(
@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                                         controller.selectedValue.value = false;
                                       },
                                       child: Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 1),
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                                         controller.selectedValue.value = true;
                                       },
                                       child: Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 1),
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -112,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                               50.ph,
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 75,
                                     width: 74,
                                     child: CommonCachedNetworkImage(
@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(
+                                          const Expanded(
                                               flex: 2,
                                               child: CustomText(
                                                 text: "Rohima Begom",
@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                                                             4),
                                                     color:
                                                         AppColors.buttonColor),
-                                                child: Center(
+                                                child: const Center(
                                                     child: CustomText(
                                                   text: "Gold",
                                                   fontSize: 12,
@@ -163,13 +163,13 @@ class ProfileScreen extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                      CustomText(
+                                      const CustomText(
                                         text: "RBegon@gmail.com",
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14,
                                         letterSpacing: 0.25,
                                       ),
-                                      CustomText(
+                                      const CustomText(
                                         text: "+8801921334543",
                                         fontWeight: FontWeight.w500,
                                         fontSize: 12,
@@ -251,7 +251,7 @@ class ProfileScreen extends StatelessWidget {
                                 if(signupController.images.isNotEmpty)
                                 10.ph,
                                 if(signupController.images.isNotEmpty)
-                                CustomText(
+                                const CustomText(
                                   text: "Certificate Image",
                                   fontSize: 13,
                                   fontWeight: FontWeight.w400,
@@ -268,7 +268,7 @@ class ProfileScreen extends StatelessWidget {
                                     itemBuilder: (_, index) {
                                       var item = signupController.images[index];
                                       return Container(
-                                        margin: EdgeInsets.only(right: 10),
+                                        margin: const EdgeInsets.only(right: 10),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(4),
@@ -285,7 +285,7 @@ class ProfileScreen extends StatelessWidget {
                                         height: 60,
                                         child: item != null
                                             ? Image.file(item, fit: BoxFit.fill)
-                                            : Center(
+                                            : const Center(
                                                 child: Icon(
                                                     Icons.add_photo_alternate,
                                                     size: 22),
@@ -302,7 +302,7 @@ class ProfileScreen extends StatelessWidget {
                                         color: AppColors.buttonColor,
                                         borderRadiusValue: 15,
                                         onPress: () {},
-                                        text: CustomText(
+                                        text: const CustomText(
                                           text: "Edit Bio",
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,
@@ -317,7 +317,7 @@ class ProfileScreen extends StatelessWidget {
                                         color: AppColors.buttonColor,
                                         borderRadiusValue: 15,
                                         onPress: () {},
-                                        text: CustomText(
+                                        text: const CustomText(
                                           text: "Add Experts Worker",
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,
@@ -329,7 +329,7 @@ class ProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                                 10.ph,
-                                CustomText(
+                                const CustomText(
                                   text: "Experts:",
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,

@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/presentation/view/screen/homepage.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_screen.dart';
 import '../../features/view/auth/login/screen/login_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen_set_information.dart';
+import '../../features/view/homepage/presentation/view/screen/category_view_all_list.dart';
+import '../../features/view/homepage/presentation/view/screen/services_screen.dart';
+import '../../features/view/parent_page/parent_screen.dart';
 import '../../features/view/splash_screen/splash_screen.dart';
 
 abstract class AppRoutes {
@@ -12,6 +16,10 @@ abstract class AppRoutes {
   static const signupScreen = _Path.signup;
   static const signupScreenSetInformation = _Path.signupScreenSetInformation;
   static const profile = _Path.profile;
+  static const homepage = _Path.homepage;
+  static const parentScreen = _Path.parentScreen;
+  static const categoryList = _Path.categoryList;
+  static const servicesScreen = _Path.servicesScreen;
 }
 
 abstract class _Path {
@@ -22,6 +30,10 @@ abstract class _Path {
   static const signup = "/signup";
   static const signupScreenSetInformation = "/signupScreenSetInformation";
   static const profile = "/profile";
+  static const homepage = "/homepage";
+  static const parentScreen = "/parentScreen";
+  static const categoryList = "/categoryList";
+  static const servicesScreen = "/servicesScreen";
 }
 
 class AppPageRoutes {
@@ -52,6 +64,26 @@ class AppPageRoutes {
     GetPage(
       name: AppRoutes.profile,
       page: () =>  ProfileScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.homepage,
+      page: () =>  HomepageScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.parentScreen,
+      page: () =>  ParentScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.categoryList,
+      page: () =>  CategoryViewAllList(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.servicesScreen,
+      page: () =>  ServicesScreen(),
       transition: Transition.cupertino,
     ),
   ];

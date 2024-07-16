@@ -8,5 +8,7 @@ class AppColors {
   static final Color containerColor = HexColor("FFEDED");
   static final Color deepGrey = HexColor("D9D9D9");
   static final Color grey1 = HexColor("FAF8F8");
+  static final Color grey2 = HexColor("DAD5D5");
   static final Color textFieldColor = HexColor("D9D9D9");
+  static final Color cardColor = HexColor("FAF8F8");
 }

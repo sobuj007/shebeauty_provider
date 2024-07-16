@@ -187,7 +187,7 @@ class SignupScreenSetInformation extends StatelessWidget {
               CustomElevatedButton(
                 color: HexColor("D9D9D9"),
                 onPress: () {
-
+                  Get.toNamed(AppRoutes.parentScreen);
                 },
 
                 text: const CustomText(
