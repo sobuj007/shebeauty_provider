@@ -13,4 +13,5 @@ class AppColors {
   static final Color cardColor = HexColor("FAF8F8");
   static final Color textColor = HexColor("6200EE");
   static final Color slideMeroon = HexColor("F1E7E7");
+  static final Color deepPurple = HexColor("6200EE");
 }

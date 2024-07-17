@@ -18,9 +18,7 @@ class CategoryViewAllList extends StatelessWidget {
   Widget build(BuildContext context) {
     var size1 = MediaQuery.of(context).size;
     final double itemHeight = (size1.height - kToolbarHeight - 10) / 8;
-    print("height $itemHeight");
     final double itemWidth = size1.width / 4.1;
-    print("height $itemWidth");
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,

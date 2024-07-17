@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_elevatedButton/custom_eleveted_button.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 
+import '../../../../../../core/routes/AppRouts.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../widgets/common_cached_network_image/common_cached_network_image.dart';
 
 class OrderlistHomeWidget extends StatelessWidget {
   final Axis scrollDirection;
-  const OrderlistHomeWidget({super.key, required this.scrollDirection});
+  final double height;
+  final String from;
+  const OrderlistHomeWidget(
+      {super.key,
+      required this.scrollDirection,
+      required this.height,
+      required this.from});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 291,
+      height: height,
       child: ListView.builder(
           scrollDirection: scrollDirection,
           itemCount: 10,
@@ -36,7 +44,7 @@ class OrderlistHomeWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                               width: 40,
                               child: CommonCachedNetworkImage(
@@ -46,7 +54,7 @@ class OrderlistHomeWidget extends StatelessWidget {
                               ),
                             ),
                             10.pw,
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText(
@@ -69,16 +77,16 @@ class OrderlistHomeWidget extends StatelessWidget {
                       10.ph,
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: 90,
-                        child: CommonCachedNetworkImage(
+                        height: from == "fromOrderlistFull" ? 190 : 90,
+                        child: const CommonCachedNetworkImage(
                           imageUrl:
                               "https://i.pinimg.com/550x/92/dc/1b/92dc1b3063e2cd03df8c48437b7a2e4e.jpg",
                           borderRadius: 0.0,
                         ),
                       ),
                       10.ph,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
                         child: CustomText(
                           text:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
@@ -92,18 +100,23 @@ class OrderlistHomeWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: SizedBox(
-                            height: 36,
-                            child: CustomElevatedButton(
-                              text: CustomText(
-                                text: "VIEW DETAILE",
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                letterSpacing: 1.25,
-                                textColor: HexColor("6200EE"),
-                              ),
-                              color: HexColor("F1E7E7"),
-                            )),
-                      )
+                          height: 36,
+                          child: CustomElevatedButton(
+                            onPress: (){
+                              Get.toNamed(AppRoutes.orderDetailsPage);
+                            },
+                            text: CustomText(
+                              text: "VIEW DETAILE",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              letterSpacing: 1.25,
+                              textColor: HexColor("6200EE"),
+                            ),
+                            color: HexColor("F1E7E7"),
+                          ),
+                        ),
+                      ),
+                      10.ph,
                     ],
                   )),
             );

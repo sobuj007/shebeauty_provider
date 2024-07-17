@@ -74,17 +74,17 @@ class HomepageScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomText(
+                        const CustomText(
                           text: "Category :",
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           letterSpacing: 0.25,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.toNamed(AppRoutes.categoryList);
                           },
-                          child: CustomText(
+                          child: const CustomText(
                             text: "Edit",
                             fontWeight: FontWeight.w600,
                             fontSize: 12,
@@ -94,9 +94,9 @@ class HomepageScreen extends StatelessWidget {
                       ],
                     ),
                     10.ph,
-                    CategoryWidget(),
+                    const CategoryWidget(),
                     10.ph,
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomText(
@@ -119,17 +119,17 @@ class HomepageScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomText(
+                        const CustomText(
                           text: "Order List",
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           letterSpacing: 0.25,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.toNamed(AppRoutes.orderListDetailsScreen);
                           },
-                          child: CustomText(
+                          child: const CustomText(
                             text: "View all",
                             fontWeight: FontWeight.w600,
                             fontSize: 12,
@@ -139,7 +139,12 @@ class HomepageScreen extends StatelessWidget {
                       ],
                     ),
                     10.ph,
-                    OrderlistHomeWidget(scrollDirection: Axis.horizontal,),
+                    const OrderlistHomeWidget(
+                      scrollDirection: Axis.horizontal,
+                      height: 291,
+                      from: "Homepage",
+                    ),
+                    10.ph,
                   ],
                 ),
               ),

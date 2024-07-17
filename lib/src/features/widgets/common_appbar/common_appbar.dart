@@ -8,12 +8,15 @@ class CommonCustomAppBar extends StatelessWidget
   final String? leadingText;
   final VoidCallback? onTap;
   final Icon? icon;
+  final bool? showActionButton;
   const CommonCustomAppBar(
       {super.key,
       required this.appbarTitle,
       this.onTap,
       this.icon,
-      this.leadingText});
+      this.leadingText,
+      this.showActionButton
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class CommonCustomAppBar extends StatelessWidget
             Icons.arrow_back_ios,
             size: 30,
           )),
-      actions: [
+      actions: showActionButton == true ? null : [
         Row(
           children: [
             if (leadingText?.isNotEmpty ?? false)

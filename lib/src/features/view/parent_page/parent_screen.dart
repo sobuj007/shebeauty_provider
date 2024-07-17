@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shebeauty_provider/src/core/utils/app_colors.dart';
-import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_screen.dart';
+import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_setting_screen.dart';
 
 import '../../../core/utils/app_assets.dart';
 import '../homepage/presentation/view/screen/homepage.dart';
+import '../homepage/presentation/view/screen/order_list_full_screen.dart';
+import '../profile_screen/presentation/view/profile_screen.dart';
 
 
 class ParentScreen extends StatefulWidget {
@@ -26,8 +28,8 @@ class _ParentScreenState extends State<ParentScreen> {
     _controller = PersistentTabController(initialIndex: 0);
     _widgetOptions = <Widget>[
       HomepageScreen(),
-      HomepageScreen(),
-      HomepageScreen(),
+      OrderListFullScreen(from: "parentScreen"),
+      ProfileScreen(),
       // Add more screens as needed
     ];
   }

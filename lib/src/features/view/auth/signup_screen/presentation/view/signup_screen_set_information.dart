@@ -22,7 +22,7 @@ class SignupScreenSetInformation extends StatelessWidget {
       appBar: CommonCustomAppBar(
         appbarTitle: "Expert's worker",
         onTap: (){
-          Get.toNamed(AppRoutes.profile);
+          Get.toNamed(AppRoutes.profileSetting);
         }
       ),
       body: SingleChildScrollView(

@@ -86,16 +86,16 @@ class AddServicesScreen extends StatelessWidget {
                     controller: controller.serviceDescriptionController.value,
                     maxLines: 7,
                     keyboardType: TextInputType.text,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                       fontSize: 10,
                       fontFamily: "Roboto",
                     ),
                     decoration: InputDecoration(
-                      label: Text("Services Description"),
+                      label: const Text("Services Description"),
                       contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         borderSide: BorderSide(
@@ -120,7 +120,7 @@ class AddServicesScreen extends StatelessWidget {
                     ),
                   ),
                   15.ph,
-                  CustomText(
+                  const CustomText(
                     text: "Add Category Image",
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -173,7 +173,7 @@ class AddServicesScreen extends StatelessWidget {
                     ],
                   ),
                   15.ph,
-                  CustomText(
+                  const CustomText(
                     text: "Product Brand:",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -208,7 +208,7 @@ class AddServicesScreen extends StatelessWidget {
                     onPress: (){
                       Get.offAllNamed(AppRoutes.parentScreen);
                     },
-                    text: CustomText(
+                    text: const CustomText(
                       text: "Submit",
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
