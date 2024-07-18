@@ -215,7 +215,7 @@ class AddServicesScreen extends StatelessWidget {
                       textColor: Colors.black,
                     ),
                   ),
-                  20.ph,
+                  8.ph,
                 ],
               ),
             ),
