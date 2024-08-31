@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:shebeauty_provider/src/core/di/app_component.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
+import 'package:shebeauty_provider/src/features/view/expart_worker_screen/presentation/controller/expert_worker_controller.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/controller/profile_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_appbar.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_elevatedButton/custom_eleveted_button.dart';
@@ -18,7 +19,7 @@ import 'experts_list.dart';
 class ProfileSettingScreen extends StatelessWidget {
   ProfileSettingScreen({super.key});
   var controller = locator<ProfileController>();
-  var signupController = locator<SignupController>();
+  var expertsController = locator<ExpertWorkerController>();
 
   @override
   Widget build(BuildContext context) {
@@ -248,25 +249,25 @@ class ProfileSettingScreen extends StatelessWidget {
                                   labelText: "Store Name",
                                   keyboardType: TextInputType.text,
                                 ),
-                                if(signupController.images.isNotEmpty)
+                                if(expertsController.images.isNotEmpty)
                                 10.ph,
-                                if(signupController.images.isNotEmpty)
+                                if(expertsController.images.isNotEmpty)
                                 const CustomText(
                                   text: "Certificate Image",
                                   fontSize: 13,
                                   fontWeight: FontWeight.w400,
                                   letterSpacing: 0.15,
                                 ),
-                                if(signupController.images.isNotEmpty)
+                                if(expertsController.images.isNotEmpty)
                                 5.ph,
-                                if(signupController.images.isNotEmpty)
+                                if(expertsController.images.isNotEmpty)
                                 SizedBox(
                                   height: 65,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: signupController.images.length,
+                                    itemCount: expertsController.images.length,
                                     itemBuilder: (_, index) {
-                                      var item = signupController.images[index];
+                                      var item = expertsController.images[index];
                                       return Container(
                                         margin: const EdgeInsets.only(right: 10),
                                         decoration: BoxDecoration(

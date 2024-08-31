@@ -8,7 +8,14 @@ class CommonTextfieldWidget extends StatelessWidget {
   final InkWell? icon;
   final bool? obscureText;
   final TextInputType? keyboardType;
-  const CommonTextfieldWidget({super.key, required this.controller, required this.labelText, required this.hintText, this.icon, this.obscureText, this.keyboardType});
+  const CommonTextfieldWidget(
+      {super.key,
+      required this.controller,
+      required this.labelText,
+      required this.hintText,
+      this.icon,
+      this.obscureText,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +26,16 @@ class CommonTextfieldWidget extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType ?? TextInputType.text,
         decoration: InputDecoration(
-          hintText: hintText ?? '',
+            hintText: hintText ?? '',
             border: InputBorder.none,
             labelText: labelText,
             fillColor: Colors.white,
             labelStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: AppColors.grey,
-                fontFamily: "Roboto"),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: AppColors.grey,
+              fontFamily: "Roboto",
+            ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(
@@ -48,14 +56,20 @@ class CommonTextfieldWidget extends StatelessWidget {
   }
 }
 
-
 class CommonSearchTextfieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String? labelText, hintText;
   final Icon? icon;
   final bool? obscureText;
   final TextInputType? keyboardType;
-  const CommonSearchTextfieldWidget({super.key, required this.controller, this.labelText, this.hintText, this.icon, this.obscureText, this.keyboardType});
+  const CommonSearchTextfieldWidget(
+      {super.key,
+      required this.controller,
+      this.labelText,
+      this.hintText,
+      this.icon,
+      this.obscureText,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {

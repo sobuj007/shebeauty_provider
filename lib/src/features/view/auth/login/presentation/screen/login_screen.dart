@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
-import 'package:shebeauty_provider/src/features/view/auth/login/controller/login_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
-
-import '../../../../../core/di/app_component.dart';
-import '../../../../../core/routes/AppRouts.dart';
-import '../../../../widgets/common_textField_widget/common_textfield_widget.dart';
-import '../../../../widgets/custom_elevatedButton/custom_eleveted_button.dart';
-import '../../../../widgets/custom_richtext/custom_richtext.dart';
+import '../../../../../../core/di/app_component.dart';
+import '../../../../../../core/routes/AppRouts.dart';
+import '../../../../../widgets/common_textField_widget/common_textfield_widget.dart';
+import '../../../../../widgets/custom_elevatedButton/custom_eleveted_button.dart';
+import '../../../../../widgets/custom_richtext/custom_richtext.dart';
+import '../controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -33,22 +32,23 @@ class LoginScreen extends StatelessWidget {
                           obscureText: controller.emailVisibility.value,
                           controller: controller.emailController.value,
                           labelText: "Email",
-                          icon: InkWell(
-                            onTap: () {
-                              controller.emailVisibility.value =
-                                  !controller.emailVisibility.value;
-                            },
-                            child: controller.emailVisibility.value
-                                ? const Icon(Icons.visibility_off)
-                                : const Icon(Icons.visibility),
-                          ),
+                          // icon: InkWell(
+                          //   onTap: () {
+                          //     controller.emailVisibility.value =
+                          //         !controller.emailVisibility.value;
+                          //   },
+                          //   child: controller.emailVisibility.value
+                          //       ? const Icon(Icons.visibility_off)
+                          //       : const Icon(Icons.visibility),
+                          // ),
                           keyboardType: TextInputType.emailAddress),
                       20.ph,
                       CommonTextfieldWidget(
                         hintText: "************",
                         obscureText: controller.passwordVisibility.value,
-                        controller: controller.emailController.value,
+                        controller: controller.passwordController.value,
                         labelText: "Password",
+                        keyboardType: TextInputType.visiblePassword,
                         icon: InkWell(
                             onTap: () {
                               controller.passwordVisibility.value =
@@ -80,7 +80,9 @@ class LoginScreen extends StatelessWidget {
                       CustomElevatedButton(
                         color: HexColor("D9D9D9"),
                         onPress: () {
+                          // controller.submitLoginData(context);
                           // controller.updateValues();
+                          Get.offNamed(AppRoutes.signupScreenSetInformation);
                         },
                         // RouteGenerator.pushNamed(context, Routes.mortgageResultPage);
                         text: const CustomText(
@@ -95,6 +97,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: (){
+
                     Get.toNamed(AppRoutes.signupScreen);
                   },
                   child: const CustomRichText(

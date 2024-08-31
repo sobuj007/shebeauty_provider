@@ -4,59 +4,69 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../../core/di/app_component.dart';
+import '../../../../../../core/routes/AppRouts.dart';
+import '../../../../../../core/source/dio_client.dart';
+import '../../../../../widgets/custom_toast/custom_toast.dart';
+import '../../domain/repository/reg_repository.dart';
+import '../../domain/usecase/reg_pass_usecase.dart';
+
 class SignupController extends GetxController{
   var emailController = TextEditingController().obs;
   var companyNameController = TextEditingController().obs;
   var passwordController = TextEditingController().obs;
   var confirmPasswordController = TextEditingController().obs;
-  var workerNameController = TextEditingController().obs;
-  var mobileNumberController = TextEditingController().obs;
-  var nidNumberController = TextEditingController().obs;
-  var experienceController = TextEditingController().obs;
+
   var passwordVisibility = true.obs;
   var confirmPasswordVisibility = true.obs;
   var termConditions = false.obs;
-  var experienceYear = false.obs;
-  var gender = 0.obs;
-  final ImagePicker picker = ImagePicker();
-  List<File?> images = <File?>[].obs;
-  Future<void> pickImage(int index, ImageSource source) async {
-    final pickedFile = await picker.pickImage(source: source);
-    if (pickedFile != null) {
-        images[index] = File(pickedFile.path);
+
+  var isLoading = false.obs;
+
+
+
+  submitSignupData(BuildContext context) async {
+    if(companyNameController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter company name.");
+    }else if(emailController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter email address.");
+    }else if(passwordController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter password.");
+    }else if(confirmPasswordController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter confirmation password.");
+    }else if(termConditions.value == false){
+      errorToast(context: context, msg: "Please select terms and condition.");
+    }else if(passwordController.value.text != confirmPasswordController.value.text){
+      errorToast(context: context, msg: "Password is not matched. Both password will be same.");
+    }else{
+      try {
+        isLoading.value = true;
+        RegPassUseCase signUpPassUseCase =
+        RegPassUseCase(locator<RegRepository>());
+        var formData = {
+          "name": companyNameController.value.text,
+          "email": emailController.value.text,
+          "password": passwordController.value.text,
+          "password_confirmation": confirmPasswordController.value.text,
+        };
+        var response = await signUpPassUseCase(formData);
+        if (response?.data != null && response?.data?.message == "Registration successful"){
+          print("this is not here");
+          successToast(context: context, msg: "Successfully sign up");
+          Get.offNamed(AppRoutes.loginScreen);
+        }else{
+          print("this is value");
+        }
+      } catch (e) {
+        print(e.toString());
+        errorToast(context: context, msg: "The email has already been taken.");
+      }finally{
+        isLoading.value = false;
+      }
     }
   }
 
-  void addContainer() {
-    images.add(null);
-  }
-  void showPicker(BuildContext context, int index) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return SafeArea(
-          child: Wrap(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Photo Library'),
-                onTap: () {
-                  pickImage(index, ImageSource.gallery);
-                  Navigator.of(context).pop();
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Camera'),
-                onTap: () {
-                  pickImage(index, ImageSource.camera);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+
+
+
 }

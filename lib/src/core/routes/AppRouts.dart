@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/view/screen/homepage.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_setting_screen.dart';
 import 'package:shebeauty_provider/src/features/view/service_location/presentation/view/service_location_screen.dart';
-import '../../features/view/auth/login/screen/login_screen.dart';
+import '../../features/view/auth/login/presentation/screen/login_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen.dart';
-import '../../features/view/auth/signup_screen/presentation/view/signup_screen_set_information.dart';
+import '../../features/view/expart_worker_screen/presentation/view/expert_worker_screen.dart';
 import '../../features/view/homepage/presentation/view/screen/order_details_page.dart';
 import '../../features/view/homepage/presentation/view/screen/order_list_full_screen.dart';
 import '../../features/view/my_slots/presentation/view/my_slots_screen.dart';
@@ -79,7 +79,7 @@ class AppPageRoutes {
     ),
     GetPage(
       name: AppRoutes.signupScreenSetInformation,
-      page: () =>  SignupScreenSetInformation(),
+      page: () =>  ExpertWorkerScreen(),
       transition: Transition.cupertino,
     ),
     GetPage(

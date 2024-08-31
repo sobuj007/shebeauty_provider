@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
-import 'package:shebeauty_provider/src/features/view/auth/login/controller/login_controller.dart';
 import 'package:shebeauty_provider/src/features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 import '../../../../../../core/di/app_component.dart';
@@ -32,14 +31,17 @@ class SignupScreen extends StatelessWidget {
                     hintText: "Enter company name",
                       controller: controller.companyNameController.value,
                       labelText: "Company Name",
-                      keyboardType: TextInputType.text),
+                      keyboardType: TextInputType.text,
+                    obscureText: false,
+                  ),
                   20.ph,
                   CommonTextfieldWidget(
                     hintText: "example@gmail.com",
                       controller: controller.emailController.value,
                       labelText: "Email",
-
-                      keyboardType: TextInputType.emailAddress),
+                      keyboardType: TextInputType.emailAddress,
+                  obscureText: false,
+                  ),
                   20.ph,
                   CommonTextfieldWidget(
                     hintText: "*********",
@@ -91,7 +93,8 @@ class SignupScreen extends StatelessWidget {
                   CustomElevatedButton(
                     color: HexColor("D9D9D9"),
                     onPress: () {
-                      Get.toNamed(AppRoutes.signupScreenSetInformation);
+                      controller.submitSignupData(context);
+                      // Get.toNamed(AppRoutes.signupScreenSetInformation);
                     },
 
                     text: const CustomText(
