@@ -27,6 +27,7 @@ class DioClient {
     // try {
       if (connectivityResult.contains(ConnectivityResult.mobile) ||
           connectivityResult.contains(ConnectivityResult.wifi)) {
+        print(request.toString());
         response = await dio.post(
           (NetworkConfiguration.baseUrl) + path,
           data: request,
@@ -35,6 +36,7 @@ class DioClient {
             method: "POST",
             headers: {
               'Authorization': 'Bearer ${session.getToken}',
+              'Accept': 'application/json'
             },
             receiveTimeout: const Duration(milliseconds: 30000),
 

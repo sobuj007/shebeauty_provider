@@ -1,23 +1,67 @@
 class LoginModel {
-  Null? profile;
+  Profile? profile;
   User? user;
   String? token;
 
   LoginModel({this.profile, this.user, this.token});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    profile = json['profile'];
+    profile =
+    json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['profile'] = this.profile;
+    if (this.profile != null) {
+      data['profile'] = this.profile!.toJson();
+    }
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
     data['token'] = this.token;
+    return data;
+  }
+}
+
+class Profile {
+  int? id;
+  String? userId;
+  String? img;
+  String? address;
+  String? mobilenumber;
+  String? createdAt;
+  String? updatedAt;
+
+  Profile(
+      {this.id,
+        this.userId,
+        this.img,
+        this.address,
+        this.mobilenumber,
+        this.createdAt,
+        this.updatedAt});
+
+  Profile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    img = json['img'];
+    address = json['address'];
+    mobilenumber = json['mobilenumber'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['img'] = this.img;
+    data['address'] = this.address;
+    data['mobilenumber'] = this.mobilenumber;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

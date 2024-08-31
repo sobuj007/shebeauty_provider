@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shebeauty_provider/src/features/view/expart_worker_screen/data/source/experts_create_service.dart';
 import 'package:shebeauty_provider/src/features/view/expart_worker_screen/presentation/controller/expert_worker_controller.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/controller/profile_controller.dart';
@@ -16,6 +17,8 @@ import '../../features/view/auth/signup_screen/data/repository/reg_repository_im
 import '../../features/view/auth/signup_screen/data/source/reg_service.dart';
 import '../../features/view/auth/signup_screen/domain/repository/reg_repository.dart';
 import '../../features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
+import '../../features/view/expart_worker_screen/data/repository/experts_create_repository_impl.dart';
+import '../../features/view/expart_worker_screen/domain/repository/experts_create_repository.dart';
 import '../../features/view/service_location/presentation/controller/service_location_controller.dart';
 import '../network/configuration.dart';
 import '../source/dio_client.dart';
@@ -44,6 +47,9 @@ Future<void> init() async {
 
   //experts worker
   locator.registerFactory<ExpertWorkerController>(() => Get.put(ExpertWorkerController()));
+  locator.registerFactory<ExpartCreateService>(() => ExpartCreateService());
+  locator.registerFactory<ExpartCreateRepository>(
+          () => ExpartCreateRepositoryImpl(locator<ExpartCreateService>()));
 
   // profile screen
   locator.registerFactory<ProfileController>(() => Get.put(ProfileController()));

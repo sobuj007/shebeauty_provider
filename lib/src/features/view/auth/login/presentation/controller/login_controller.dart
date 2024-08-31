@@ -37,10 +37,13 @@ class LoginController extends GetxController{
             session.createSession(response?.data,
                 email: emailController.value.text,
                 password: passwordController.value.text);
+          }else{
+            session.setToken = response?.data?.token ?? '';
           }
+          print("this is token ${session.getToken}");
           if (!context.mounted) return;
           // Get.offNamed(AppRoutes.homepage);
-          Get.offNamed(AppRoutes.signupScreenSetInformation);
+          // Get.offNamed(AppRoutes.signupScreenSetInformation);
           if (!context.mounted) return;
           successToast(context: context, msg: "Successfully sign in");
         } else {

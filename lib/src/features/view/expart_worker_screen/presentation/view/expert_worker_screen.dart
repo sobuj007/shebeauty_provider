@@ -22,6 +22,7 @@ class ExpertWorkerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
+      backgroundColor: Colors.white,
           appBar: CommonCustomAppBar(
               appbarTitle: "Expert's worker",
               onTap: () {
@@ -39,13 +40,30 @@ class ExpertWorkerScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(
+                      InkWell(
+                        onTap: () =>
+                            controller.pickImageForCertificate(from: "profile"),
+                        child: SizedBox(
                           height: 75,
                           width: 74,
-                          child: CommonCachedNetworkImage(
-                            imageUrl:
-                                "https://www.shutterstock.com/image-photo/smiling-mature-man-wearing-spectacles-260nw-1432699253.jpg",
-                          )),
+                          child: (controller.profileImage.value.path.isNotEmpty)
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(500),
+                                  child: Image.file(
+                                    File(controller.profileImage.value.path),
+                                    height: 75,
+                                    width: 74,
+                                    fit: BoxFit.fill,
+                                  ),
+                                )
+                              : const Center(
+                                  child: Icon(
+                                    Icons.add_photo_alternate,
+                                    size: 22,
+                                  ),
+                                ),
+                        ),
+                      ),
                       10.pw,
                       Expanded(
                         flex: 5,
@@ -53,6 +71,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                             hintText: "Enter your name",
                             controller: controller.workerNameController.value,
                             labelText: "Worker Name",
+                            obscureText: false,
                             keyboardType: TextInputType.text),
                       ),
                     ],
@@ -68,6 +87,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                           hintText: "Enter mobile number",
                           controller: controller.mobileNumberController.value,
                           labelText: "Mobile Number",
+                          obscureText: false,
                           keyboardType: TextInputType.number,
                         ),
                         20.ph,
@@ -76,6 +96,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                           controller: controller.nidNumberController.value,
                           labelText: "NID",
                           keyboardType: TextInputType.number,
+                          obscureText: false,
                         ),
                         20.ph,
                         CommonTextfieldWidget(
@@ -83,7 +104,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                           controller: controller.experienceController.value,
                           labelText: "Experience Year",
                           keyboardType: TextInputType.number,
-                          obscureText: controller.experienceYear.value,
+                          obscureText: false,
                         ),
                         10.ph,
                       ],
@@ -107,7 +128,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                           Row(
                             children: [
                               Radio(
-                                  value: 1,
+                                  value: "male",
                                   groupValue: controller.gender.value,
                                   onChanged: (value) {
                                     controller.gender.value = value!;
@@ -121,7 +142,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                           Row(
                             children: [
                               Radio(
-                                  value: 2,
+                                  value: "female",
                                   groupValue: controller.gender.value,
                                   onChanged: (value) {
                                     controller.gender.value = value!;
@@ -200,7 +221,8 @@ class ExpertWorkerScreen extends StatelessWidget {
                   // ]),
                   // 30.ph,
                   GestureDetector(
-                    onTap: () => controller.pickImageForCertificate(),
+                    onTap: () =>
+                        controller.pickImageForCertificate(from: "certificate"),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
@@ -232,7 +254,7 @@ class ExpertWorkerScreen extends StatelessWidget {
                   CustomElevatedButton(
                     color: HexColor("D9D9D9"),
                     onPress: () {
-
+                      controller.submitExpertsInfo(context);
                       // Get.toNamed(AppRoutes.parentScreen);
                     },
                     text: const CustomText(

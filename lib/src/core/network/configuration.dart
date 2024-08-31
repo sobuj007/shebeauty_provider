@@ -2,6 +2,7 @@ class NetworkConfiguration {
   static const String baseUrl = "https://softisan.xyz/api/";
   static const String reg = "register";
   static const String login = "login";
+  static const String createExperts = "myexparts/store";
   static const String productCategory = "product-category";
   static const String productCategoryWiseProduct = "products";
   static const String productCategoryWiseItemDetails = "item/";
