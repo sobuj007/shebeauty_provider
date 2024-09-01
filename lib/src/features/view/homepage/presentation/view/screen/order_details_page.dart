@@ -10,6 +10,7 @@ import 'package:shebeauty_provider/src/features/widgets/common_cached_network_im
 import 'package:shebeauty_provider/src/features/widgets/custom_elevatedButton/custom_eleveted_button.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 
+import '../../../../../../core/source/dio_client.dart';
 import '../../../../../../core/utils/app_colors.dart';
 
 class OrderDetailsPage extends StatelessWidget {
@@ -37,12 +38,11 @@ class OrderDetailsPage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const SizedBox(
+                           SizedBox(
                             height: 139,
                             width: 108,
                             child: CommonCachedNetworkImage(
-                              imageUrl:
-                                  "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                              imageUrl: controller.orderDetailsModel.value.orderProducts?.first.serviceProduct?.image ?? '',
                               borderRadius: 2,
                             ),
                           ),
@@ -51,119 +51,124 @@ class OrderDetailsPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const CustomText(
-                                  text: "Rohima begom",
+                                CustomText(
+                                  text: session.getFullName ?? '',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                   letterSpacing: 0.15,
                                 ),
                                 10.ph,
                                 CustomRow(
-                                  heading: "Services 300 TK",
-                                  value: "Time: 11:00 AM",
+                                  heading: "Services ${controller.orderDetailsModel.value.orderProducts?.first.servicePrice ?? ''} TK",
+                                  value: "Order Date: ${controller.orderDetailsModel.value.orderDate ?? ''}",
                                 ),
                                 10.ph,
                                 CustomRow(
-                                  heading: "Product 300 TK",
-                                  value: "Duration 45 min",
+                                  heading: "Product ${controller.orderDetailsModel.value.orderProducts?.first.productPrice ?? ''} TK",
+                                  value: "Amount ${controller.orderDetailsModel.value.totalAmount ?? ''}",
+                                ),
+                                10.ph,
+                                CustomRow(
+                                  heading: "Gender: ${controller.orderDetailsModel.value.orderProducts?.first.serviceProduct?.gender ?? ''} ",
+                                  value: "",
                                 ),
                               ],
                             ),
                           )
                         ],
                       ),
-                      15.ph,
-                      CustomText(
-                        text: "Date:",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.15,
-                      ),
+                      // 15.ph,
+                      // CustomText(
+                      //   text: "Date:",
+                      //   fontSize: 18,
+                      //   fontWeight: FontWeight.w500,
+                      //   letterSpacing: 0.15,
+                      // ),
+                      // 10.ph,
+                      // SizedBox(
+                      //   height: 65,
+                      //   child: ListView.builder(
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemCount: 5,
+                      //     itemBuilder: (_, index) {
+                      //       return Container(
+                      //         margin: const EdgeInsets.only(right: 10),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(4),
+                      //           color: AppColors.buttonColor.withOpacity(0.5),
+                      //           border: Border.all(
+                      //               color: AppColors.buttonColor, width: 1),
+                      //         ),
+                      //         width:
+                      //             (MediaQuery.of(context).size.width / 5) - 16,
+                      //         height: 60,
+                      //         child: const Center(
+                      //           child:
+                      //               Icon(Icons.add_photo_alternate, size: 22),
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                       10.ph,
-                      SizedBox(
-                        height: 65,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (_, index) {
-                            return Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: AppColors.buttonColor.withOpacity(0.5),
-                                border: Border.all(
-                                    color: AppColors.buttonColor, width: 1),
-                              ),
-                              width:
-                                  (MediaQuery.of(context).size.width / 5) - 16,
-                              height: 60,
-                              child: const Center(
-                                child:
-                                    Icon(Icons.add_photo_alternate, size: 22),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      10.ph,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 0,
-                            child: CustomText(
-                              text: "Provider gender :",
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.15,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: 1,
-                                      groupValue: controller.gender.value,
-                                      onChanged: (value) {
-                                        controller.gender.value = value!;
-                                      }),
-                                  Icon(
-                                    Icons.boy,
-                                    size: 23,
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Radio(
-                                      value: 2,
-                                      groupValue: controller.gender.value,
-                                      onChanged: (value) {
-                                        controller.gender.value = value!;
-                                      }),
-                                  Icon(
-                                    Icons.girl,
-                                    size: 23,
-                                  )
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      15.ph,
-                      CustomText(
-                        text: "Time Slot:",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.15,
-                      ),
-                      10.ph,
-                      CustomRow(
-                          heading: "Choose Time",
-                          value: "11:00 - 11:30 AM",
-                          textAlign: TextAlign.end),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Expanded(
+                      //       flex: 0,
+                      //       child: CustomText(
+                      //         text: "Provider gender :",
+                      //         fontSize: 13,
+                      //         fontWeight: FontWeight.w500,
+                      //         letterSpacing: 0.15,
+                      //       ),
+                      //     ),
+                      //     Row(
+                      //       children: [
+                      //         Row(
+                      //           children: [
+                      //             Radio(
+                      //               toggleable: true,
+                      //                 value: 1,
+                      //                 groupValue: controller.gender.value,
+                      //                 onChanged: null,
+                      //             ),
+                      //             Icon(
+                      //               Icons.boy,
+                      //               size: 23,
+                      //             )
+                      //           ],
+                      //         ),
+                      //         Row(
+                      //           children: [
+                      //             Radio(
+                      //               toggleable: true,
+                      //                 value: 2,
+                      //                 groupValue: controller.gender.value,
+                      //                 onChanged: null,
+                      //             ),
+                      //             Icon(
+                      //               Icons.girl,
+                      //               size: 23,
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     )
+                      //   ],
+                      // ),
+                      // 15.ph,
+                      // CustomText(
+                      //   text: "Time Slot:",
+                      //   fontSize: 18,
+                      //   fontWeight: FontWeight.w500,
+                      //   letterSpacing: 0.15,
+                      // ),
+                      // 10.ph,
+                      // CustomRow(
+                      //     heading: "Choose Time",
+                      //     value: "11:00 - 11:30 AM",
+                      //     textAlign: TextAlign.end),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -176,54 +181,57 @@ class OrderDetailsPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              // Container(
+                              //   height: 30,
+                              //   width: 30,
+                              //   color: Colors.transparent,
+                              //   child: Center(
+                              //     child: IconButton(
+                              //       onPressed: () {
+                              //         if (controller.productQuantity.value >
+                              //             0) {
+                              //           controller.productQuantity.value--;
+                              //         } else {
+                              //           controller.productQuantity.value = 0;
+                              //         }
+                              //       },
+                              //       icon: Icon(
+                              //         Icons.remove,
+                              //         size: 30,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // 15.pw,
                               Container(
-                                height: 30,
-                                width: 30,
-                                color: Colors.transparent,
+                                margin: EdgeInsets.only(top: 10),
+                                height: 34,
+                                // width: 38,
+                                color: AppColors.deepGrey,
                                 child: Center(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      if (controller.productQuantity.value >
-                                          0) {
-                                        controller.productQuantity.value--;
-                                      } else {
-                                        controller.productQuantity.value = 0;
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.remove,
-                                      size: 30,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: CustomText(
+                                      text: controller.orderDetailsModel.value.orderProducts?.first.productQuantity ?? '',
                                     ),
                                   ),
                                 ),
                               ),
-                              15.pw,
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                height: 34,
-                                width: 38,
-                                color: AppColors.deepGrey,
-                                child: Center(
-                                  child: CustomText(
-                                    text: "${controller.productQuantity.value}",
-                                  ),
-                                ),
-                              ),
-                              10.ph,
-                              Container(
-                                height: 30,
-                                width: 30,
-                                color: Colors.transparent,
-                                child: IconButton(
-                                  onPressed: () {
-                                    controller.productQuantity.value++;
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
+                              // 10.ph,
+                              // Container(
+                              //   height: 30,
+                              //   width: 30,
+                              //   color: Colors.transparent,
+                              //   child: IconButton(
+                              //     onPressed: () {
+                              //       controller.productQuantity.value++;
+                              //     },
+                              //     icon: Icon(
+                              //       Icons.add,
+                              //       size: 30,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           )
                         ],
@@ -241,62 +249,64 @@ class OrderDetailsPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              // Container(
+                              //   height: 30,
+                              //   width: 30,
+                              //   color: Colors.transparent,
+                              //   child: Center(
+                              //     child: IconButton(
+                              //       onPressed: () {
+                              //         if (controller.serviceQuantity.value >
+                              //             0) {
+                              //           controller.serviceQuantity.value--;
+                              //         } else {
+                              //           controller.serviceQuantity.value = 0;
+                              //         }
+                              //       },
+                              //       icon: Icon(
+                              //         Icons.remove,
+                              //         size: 30,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // 15.pw,
                               Container(
-                                height: 30,
-                                width: 30,
-                                color: Colors.transparent,
+                                margin: EdgeInsets.only(top: 10),
+                                height: 34,
+                                color: AppColors.deepGrey,
                                 child: Center(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      if (controller.serviceQuantity.value >
-                                          0) {
-                                        controller.serviceQuantity.value--;
-                                      } else {
-                                        controller.serviceQuantity.value = 0;
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.remove,
-                                      size: 30,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: CustomText(
+                                      text: controller.orderDetailsModel.value.orderProducts?.first.serviceQuantity ?? '',
                                     ),
                                   ),
                                 ),
                               ),
-                              15.pw,
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                height: 34,
-                                width: 38,
-                                color: AppColors.deepGrey,
-                                child: Center(
-                                  child: CustomText(
-                                    text: "${controller.serviceQuantity.value}",
-                                  ),
-                                ),
-                              ),
-                              10.ph,
-                              Container(
-                                height: 30,
-                                width: 30,
-                                color: Colors.transparent,
-                                child: IconButton(
-                                  onPressed: () {
-                                    controller.serviceQuantity.value++;
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
+                              // 10.ph,
+                              // Container(
+                              //   height: 30,
+                              //   width: 30,
+                              //   color: Colors.transparent,
+                              //   child: IconButton(
+                              //     onPressed: () {
+                              //       controller.serviceQuantity.value++;
+                              //     },
+                              //     icon: Icon(
+                              //       Icons.add,
+                              //       size: 30,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           )
                         ],
                       ),
-                      10.ph,
+                      15.ph,
                       CustomRow(
                           heading: "Total",
-                          value: "600 TK",
+                          value: "${controller.orderDetailsModel.value.totalAmount ?? ''} TK",
                           textAlign: TextAlign.end),
                       10.ph,
                     ],
@@ -318,7 +328,7 @@ class OrderDetailsPage extends StatelessWidget {
                       children: [
                         CustomRow(
                             heading: "Service Charge",
-                            value: "600 TK",
+                            value: "${controller.orderDetailsModel.value.totalAmount ?? ''} TK",
                             textAlign: TextAlign.end),
                         10.ph,
                         CustomRow(
@@ -327,9 +337,10 @@ class OrderDetailsPage extends StatelessWidget {
                             textAlign: TextAlign.end),
                         10.ph,
                         CustomRow(
-                            heading: "Total",
-                            value: "650 TK",
-                            textAlign: TextAlign.end),
+                          heading: "Total",
+                          value: "${(double.parse(controller.orderDetailsModel.value.totalAmount ?? '0') + 50.00).toStringAsFixed(2)} TK",
+                          textAlign: TextAlign.end,
+                        ),
                         10.ph,
                         CustomElevatedButton(
                           text: CustomText(

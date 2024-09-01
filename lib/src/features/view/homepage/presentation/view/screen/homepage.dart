@@ -94,7 +94,7 @@ class HomepageScreen extends StatelessWidget {
                       ],
                     ),
                     10.ph,
-                    const CategoryWidget(),
+                     CategoryWidget(),
                     10.ph,
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,9 +139,9 @@ class HomepageScreen extends StatelessWidget {
                       ],
                     ),
                     10.ph,
-                    const OrderlistHomeWidget(
+                     OrderlistHomeWidget(
                       scrollDirection: Axis.horizontal,
-                      height: 291,
+                      height: 270,
                       from: "Homepage",
                     ),
                     10.ph,

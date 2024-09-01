@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                         color: HexColor("D9D9D9"),
                         onPress: () {
                           controller.submitLoginData(context);
-                          Get.offNamed(AppRoutes.signupScreenSetInformation);
+
                         },
                         // RouteGenerator.pushNamed(context, Routes.mortgageResultPage);
                         text: const CustomText(

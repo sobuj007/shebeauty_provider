@@ -19,6 +19,9 @@ import '../../features/view/auth/signup_screen/domain/repository/reg_repository.
 import '../../features/view/auth/signup_screen/presentation/controller/signup_controller.dart';
 import '../../features/view/expart_worker_screen/data/repository/experts_create_repository_impl.dart';
 import '../../features/view/expart_worker_screen/domain/repository/experts_create_repository.dart';
+import '../../features/view/homepage/data/repository/get_all_product_repository_impl.dart';
+import '../../features/view/homepage/data/source/get_all_product_service.dart';
+import '../../features/view/homepage/domain/repository/get_all_product_repository.dart';
 import '../../features/view/service_location/presentation/controller/service_location_controller.dart';
 import '../network/configuration.dart';
 import '../source/dio_client.dart';
@@ -53,7 +56,12 @@ Future<void> init() async {
 
   // profile screen
   locator.registerFactory<ProfileController>(() => Get.put(ProfileController()));
+  // homepage
   locator.registerFactory<HomepageController>(() => Get.put(HomepageController()));
+  locator.registerFactory<GetAllProductService>(() => GetAllProductService());
+  locator.registerFactory<GetAllProductRepository>(
+          () => GetAllProductRepositoryImpl(locator<GetAllProductService>()));
+
   locator.registerFactory<ServiceController>(() => Get.put(ServiceController()));
   locator.registerFactory<ServiceLocationController>(() => Get.put(ServiceLocationController()));
 

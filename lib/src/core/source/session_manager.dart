@@ -11,6 +11,7 @@ class SessionManager {
         setToken = loginModelData?.token;
         setPassword = password;
         setEmail = email;
+        setFullName = loginModelData?.user?.name;
       return true;
     } catch (e) {
       return false;
