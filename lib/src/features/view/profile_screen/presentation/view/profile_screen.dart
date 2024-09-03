@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shebeauty_provider/src/core/di/app_component.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/core/utils/app_assets.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
+import 'package:shebeauty_provider/src/features/view/service_location/presentation/controller/service_location_controller.dart';
+import 'package:shebeauty_provider/src/features/view/services/presentation/controller/service_controller.dart';
 
 import '../../../../../core/routes/AppRouts.dart';
 import '../../../../../core/utils/app_colors.dart';
@@ -9,8 +13,9 @@ import '../../../../widgets/common_cached_network_image/common_cached_network_im
 import '../../../../widgets/custom_text/custom_text.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+   ProfileScreen({super.key});
+var serviceLocationController = locator<ServiceLocationController>(); 
+var homeController = locator<HomepageController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,15 +69,19 @@ class ProfileScreen extends StatelessWidget {
                 thickness: 1,
               ),
               20.ph,
-              CustomRow(icon: Icons.settings, menuName: "Add your services", onPress: (){Get.toNamed(AppRoutes.addServicesScreen);}),
+              CustomRow(icon: Icons.settings, menuName: "Add your services", onPress: (){
+                Get.toNamed(AppRoutes.addServicesScreen);
+                }),
               25.ph,
               CustomRow(icon: Icons.settings, menuName: "Profile Settings", onPress: (){Get.toNamed(AppRoutes.profileSetting);}),
+              25.ph,
+              CustomRow(icon: Icons.settings, menuName: "My Services", onPress: (){Get.toNamed(AppRoutes.servicesScreen);}),
               25.ph,
               CustomRowImage(
                   image: AppAssets.location, menuName: "My Time Slots", onPress: (){Get.toNamed(AppRoutes.mySlotsScreen);}),
               25.ph,
               CustomRowImage(
-                  image: AppAssets.location, menuName: "Service Location", onPress: (){Get.toNamed(AppRoutes.serviceLocationScreen);}),
+                  image: AppAssets.location, menuName: "Service Location", onPress: (){ serviceLocationController.saveAndNavigateIfNeeded();}),
               25.ph,
               CustomRow(icon: Icons.error, menuName: "Wallet", onPress: (){Get.toNamed(AppRoutes.walletScreen);}),
               25.ph,

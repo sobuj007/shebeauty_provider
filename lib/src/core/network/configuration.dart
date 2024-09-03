@@ -5,9 +5,14 @@ class NetworkConfiguration {
   static const String createExperts = "myexparts/store";
   static const String productCategory = "product-category";
   static const String productCategoryWiseProduct = "products";
+  static const String serviceList = "serviceproducts";
+  static const String expertsList = "myexparts";
+  static const String createAddService = "serviceproducts/store";
   static const String productCategoryWiseItemDetails = "item/";
   static const String getAll = "getall";
   static const String orders = "orders";
+  static const String timeSlot = "myslots";
+  static const String appointmentSlotShow = "appointmentslots/slot/";
   static const int success = 0;
   static const String successs = "Status.success";
   static const int error = 1;

@@ -161,8 +161,9 @@ class Location {
   int? id;
   String? citiesId;
   String? name;
+  bool? selectCheckBox;
 
-  Location({this.id, this.citiesId, this.name});
+  Location({this.id, this.citiesId, this.name, this.selectCheckBox});
 
   Location.fromJson(Map<String, dynamic> json) {
     id = json['id'];

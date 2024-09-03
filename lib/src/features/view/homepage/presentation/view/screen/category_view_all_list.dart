@@ -5,6 +5,7 @@ import 'package:shebeauty_provider/src/core/di/app_component.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_appbar.dart';
+import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 
 import '../../../../../../core/routes/AppRouts.dart';
 import '../../../../../../core/utils/app_assets.dart';
@@ -26,6 +27,7 @@ class CategoryViewAllList extends StatelessWidget {
         appbarTitle: "My Category",
         onTap: () {
           Get.toNamed(AppRoutes.addServicesScreen);
+
         },
         icon: const Icon(Icons.add_box),
         leadingText: "ADD",
@@ -39,6 +41,7 @@ class CategoryViewAllList extends StatelessWidget {
               children: [
                 Expanded(
                   child: CommonSearchTextfieldWidget(
+                    obscureText: false,
                     controller: controller.searchController.value,
                     icon: const Icon(Icons.search,
                         size: 30, weight: 0.5, opticalSize: 0.5),
@@ -49,10 +52,10 @@ class CategoryViewAllList extends StatelessWidget {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.deepGrey, width: 1)
-                    // color: AppColors.buttonColor,
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.deepGrey, width: 1)
+                      // color: AppColors.buttonColor,
+                      ),
                   child: Image.asset(
                     AppAssets.filter,
                     height: 30,
@@ -63,54 +66,85 @@ class CategoryViewAllList extends StatelessWidget {
             ),
             15.ph,
             Expanded(
-                child: GridView.count(
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 15,
-                  crossAxisCount: 3,
-                  childAspectRatio: (itemWidth / itemHeight),
-                  controller: new ScrollController(keepScrollOffset: false),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: controller.cardList
-                      .map((item) => GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            margin: new EdgeInsets.only(right: 0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: CachedNetworkImage(
-                                imageUrl: item['image']!,
-                                width: width,
-                                height: double.infinity,
-                                fit: BoxFit.fill,
-                                placeholder: (context, url) => Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColors.grey1,
-                                  ),
-                                  // color: AppColors.primaryColor,
-                                  width: width,
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    width: 60,
-                                    height: 60,
-                                    child: Image.asset(AppAssets.logo),
-                                  ),
+                child: Obx(() => GridView.count(
+                      mainAxisSpacing: 3,
+                      crossAxisSpacing: 15,
+                      crossAxisCount: 3,
+                      childAspectRatio: (itemWidth / itemHeight),
+                      controller: new ScrollController(keepScrollOffset: false),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: controller.filteredCategories
+                          .map((item) => GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                margin: new EdgeInsets.only(right: 0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.grey.withOpacity(0.3)),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(4),
+                                        child: CachedNetworkImage(
+                                          imageUrl: item.image ?? '',
+                                          width: width,
+                                          height: double.infinity,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: AppColors.grey1,
+                                            ),
+                                            // color: AppColors.primaryColor,
+                                            width: width,
+                                            alignment: Alignment.center,
+                                            child: Container(
+                                              width: 60,
+                                              height: 60,
+                                              child:
+                                                  Image.asset(AppAssets.logo),
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              ClipRRect(
+                                            child: Image.asset(
+                                              AppAssets.logo,
+                                              height: double.infinity,
+                                              width: width,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            borderRadius: const BorderRadius.only(
+                                                bottomLeft: Radius.circular(5),
+                                                bottomRight:
+                                                    Radius.circular(5))),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5, vertical: 5),
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: CustomText(
+                                          text: item.name ?? '',
+                                          textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.w500,
+                                          textColor: Colors.black,
+                                        ))
+                                  ],
                                 ),
-                                errorWidget: (context, url, error) => ClipRRect(
-                                  child: Image.asset(
-                                    AppAssets.logo,
-                                    height: double.infinity,
-                                    width: width,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  borderRadius: BorderRadius.circular(3),
-                                ),
-                              ),
-                            ),
-                          )))
-                      .toList(),
-                ))
+                              )))
+                          .toList(),
+                    )))
           ],
         ),
       ),

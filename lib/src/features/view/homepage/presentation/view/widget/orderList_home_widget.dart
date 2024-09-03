@@ -44,7 +44,7 @@ class OrderlistHomeWidget extends StatelessWidget {
                         side: BorderSide(color: AppColors.deepGrey),
                       ),
                       child: SizedBox(
-                        height: 330,
+                        height: 300,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -96,7 +96,7 @@ class OrderlistHomeWidget extends StatelessWidget {
                                 10.ph,
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width,
-                                  height: from == "fromOrderlistFull" ? 190 : 90,
+                                  height: from == "fromOrderlistFull" ? 140 : 90,
                                   child: CommonCachedNetworkImage(
                                     imageUrl: item.orderProducts?.first
                                             .serviceProduct?.image ??

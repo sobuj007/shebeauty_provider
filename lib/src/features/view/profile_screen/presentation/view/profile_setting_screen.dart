@@ -337,7 +337,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                   letterSpacing: 0.25,
                                 ),
                                 10.ph,
-                                ExpertsList(controller: controller),
+                                ExpertsList(),
                               ],
                             ),
                           ),

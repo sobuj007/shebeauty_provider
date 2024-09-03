@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shebeauty_provider/src/core/di/app_component.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/core/utils/app_colors.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
 import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_appbar.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 
@@ -13,6 +17,7 @@ import '../controller/service_location_controller.dart';
 class ServiceLocationScreen extends StatelessWidget {
   ServiceLocationScreen({super.key});
   var controller = locator<ServiceLocationController>();
+  var homepageController = locator<HomepageController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,7 @@ class ServiceLocationScreen extends StatelessWidget {
           children: [
             10.ph,
             Container(
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20),
               height: 48,
               width: MediaQuery.of(context).size.width,
               color: AppColors.deepPurple.withOpacity(0.2),
@@ -52,23 +57,29 @@ class ServiceLocationScreen extends StatelessWidget {
             20.ph,
             Expanded(
               child: ListView.builder(
-                itemCount: controller.item.length,
+                itemCount: homepageController
+                    .getAllProductModel.value.location?.length,
                 itemBuilder: (_, index) {
-                  var item = controller.item[index];
+                  var item = homepageController
+                      .getAllProductModel.value.location?[index];
                   return InkWell(
                     onTap: () {
                       controller.selectIndex.value = index;
 
-                      if (!controller.locations.contains(item)) {
+                      if (controller.locations.contains(item)) {
+                        controller.locations.remove(item);
+                      } else {
                         controller.locations.add(item);
                       }
+                      print("items ${controller.selectedlocations}");
+                      controller.update();
                     },
                     child: Obx(() => Container(
-                          padding: EdgeInsets.only(left: 20),
-                          margin: EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(left: 20),
+                          margin: const EdgeInsets.only(bottom: 10),
                           height: 48,
                           width: MediaQuery.of(context).size.width * 0.7,
-                          color: controller.selectIndex.value == index
+                          color: controller.selectedlocations.isNotEmpty &&  controller.selectedlocations.contains(item)? AppColors.deepPurple.withOpacity(0.2)  : controller.locations.contains(item)
                               ? AppColors.deepPurple.withOpacity(0.2)
                               : Colors.transparent,
                           child: Row(
@@ -86,7 +97,7 @@ class ServiceLocationScreen extends StatelessWidget {
                               ),
                               20.pw,
                               CustomText(
-                                text: "${item["item"]}",
+                                text: "${item?.name}",
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
                                 textColor: AppColors.deepPurple,
@@ -94,23 +105,31 @@ class ServiceLocationScreen extends StatelessWidget {
                             ],
                           ),
                         )),
+                  
                   );
                 },
               ),
+            
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if(controller.locations.isEmpty){
-            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-              content: Text("Please select a location"),
+        onPressed: () async {
+          if (controller.locations.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text("Please select a location"),
               elevation: 0,
               backgroundColor: AppColors.deepPurple.withOpacity(0.6),
-              
             ));
-          }else{
+          } else {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            List<String> stringList = controller.locations
+                .map((item) => jsonEncode(item.toJson()))
+                .toList();
+            await prefs.setStringList('customObjectList', stringList);
+            List<String>? selectedStringList = prefs.getStringList('customObjectList');
+           controller.selectedlocations.value = selectedStringList ?? [];
             Get.toNamed(AppRoutes.selectedServiceLocationScreen);
           }
         },
@@ -122,7 +141,7 @@ class ServiceLocationScreen extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(500),
               color: AppColors.deepPurple.withOpacity(0.7)),
-          child: Center(
+          child: const Center(
             child: Icon(
               Icons.arrow_forward,
               size: 20,

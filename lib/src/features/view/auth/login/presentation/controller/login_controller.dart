@@ -45,7 +45,7 @@ class LoginController extends GetxController{
           }
           print("this is token ${session.getToken}");
           if (!context.mounted) return;
-          Get.offNamed(AppRoutes.homepage);
+          Get.offNamed(AppRoutes.parentScreen);
           // Get.offNamed(AppRoutes.signupScreenSetInformation);
           if (!context.mounted) return;
           if((session.getEmail?.isEmpty ?? false) && (session.getPassword?.isEmpty ?? false)){

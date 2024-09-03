@@ -5,6 +5,25 @@ abstract class GetAllProductUseCase {
 
   GetAllProductUseCase(this.getAllProductRepository);
 }
+
+abstract class ServiceProductsUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  ServiceProductsUseCase(this.getAllProductRepository);
+}
+
+abstract class ExpertsListUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  ExpertsListUseCase(this.getAllProductRepository);
+}
+
+abstract class TimeSlotUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  TimeSlotUseCase(this.getAllProductRepository);
+}
+
 abstract class OrderDetailsUseCase {
   final GetAllProductRepository getAllProductRepository;
 
@@ -17,3 +36,8 @@ abstract class GetOrdersProductUseCase {
   GetOrdersProductUseCase(this.getAllProductRepository);
 }
 
+abstract class AppointmentSlotUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  AppointmentSlotUseCase(this.getAllProductRepository);
+}
