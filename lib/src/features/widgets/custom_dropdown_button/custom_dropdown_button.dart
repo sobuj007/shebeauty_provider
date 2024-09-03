@@ -62,7 +62,6 @@ class CustomDropDown extends StatelessWidget {
                   hint: Text(
                     "$hint",
                     style: TextStyle(
-                      fontSize: 16,
                       color: Colors.black,
                     ),
                   ),
@@ -89,7 +88,6 @@ class CustomDropDown extends StatelessWidget {
                         text: value.name,
                         textColor: valueTextColor ?? Colors.black,
                         textAlign: TextAlign.start,
-                        fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),
                     );
