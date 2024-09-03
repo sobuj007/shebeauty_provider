@@ -9,8 +9,8 @@ import '../../domain/repository/login_repository.dart';
 import '../../domain/usecase/login_with_id_pass_usecase.dart';
 
 class LoginController extends GetxController{
-  var emailController = TextEditingController(text: "agent@gmail.com").obs;
-  var passwordController = TextEditingController(text: "password").obs;
+  var emailController = TextEditingController().obs;
+  var passwordController = TextEditingController().obs;
   var emailVisibility = false.obs;
   var passwordVisibility = true.obs;
   var confirmPasswordVisibility = false.obs;

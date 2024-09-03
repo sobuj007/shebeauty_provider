@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shebeauty_provider/src/features/view/expart_worker_screen/data/source/experts_create_service.dart';
 import 'package:shebeauty_provider/src/features/view/expart_worker_screen/presentation/controller/expert_worker_controller.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
+import 'package:shebeauty_provider/src/features/view/my_slots/data/source/myslot_creation_service.dart';
+import 'package:shebeauty_provider/src/features/view/my_slots/presentation/controller/my_slot_create_controller.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/controller/profile_controller.dart';
 import 'package:shebeauty_provider/src/features/view/services/presentation/controller/service_controller.dart';
 import 'package:shebeauty_provider/src/features/view/splash_screen/controller/splash_screen_controller.dart';
@@ -22,6 +24,8 @@ import '../../features/view/expart_worker_screen/domain/repository/experts_creat
 import '../../features/view/homepage/data/repository/get_all_product_repository_impl.dart';
 import '../../features/view/homepage/data/source/get_all_product_service.dart';
 import '../../features/view/homepage/domain/repository/get_all_product_repository.dart';
+import '../../features/view/my_slots/data/repository/myslot_creation_repository_impl.dart';
+import '../../features/view/my_slots/domain/repository/myslot_creation_repository.dart';
 import '../../features/view/service_location/presentation/controller/service_location_controller.dart';
 import '../network/configuration.dart';
 import '../source/dio_client.dart';
@@ -61,6 +65,15 @@ Future<void> init() async {
   locator.registerFactory<GetAllProductService>(() => GetAllProductService());
   locator.registerFactory<GetAllProductRepository>(
           () => GetAllProductRepositoryImpl(locator<GetAllProductService>()));
+
+
+
+  // homepage
+  locator.registerFactory<MySlotCreateController>(() => Get.put(MySlotCreateController()));
+  locator.registerFactory<MySlotCreateService>(() => MySlotCreateService());
+  locator.registerFactory<MySlotCreateRepository>(
+          () => MySlotCreateRepositoryImpl(locator<MySlotCreateService>()));
+
 
   locator.registerFactory<ServiceController>(() => Get.put(ServiceController()));
   locator.registerFactory<ServiceLocationController>(() => Get.put(ServiceLocationController()));

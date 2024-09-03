@@ -94,6 +94,13 @@ class ServiceController extends GetxController {
     //   isLoadingAppointmentSlot.value = false;
     // }
   }
+
+  addService(){
+
+  }
+
+
+
   void addLocation(item) {
     print("this is id ${item.id}");
     if (!selectedLocations.contains(item)) {

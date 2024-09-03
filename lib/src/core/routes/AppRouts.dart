@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/view/screen/homepage.dart';
+import 'package:shebeauty_provider/src/features/view/my_slots/presentation/view/appointmnet_slot_create.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_setting_screen.dart';
 import 'package:shebeauty_provider/src/features/view/service_location/presentation/view/service_location_screen.dart';
 import '../../features/view/auth/login/presentation/screen/login_screen.dart';
@@ -7,6 +8,7 @@ import '../../features/view/auth/signup_screen/presentation/view/signup_screen.d
 import '../../features/view/expart_worker_screen/presentation/view/expert_worker_screen.dart';
 import '../../features/view/homepage/presentation/view/screen/order_details_page.dart';
 import '../../features/view/homepage/presentation/view/screen/order_list_full_screen.dart';
+import '../../features/view/my_slots/presentation/view/my_slot_create_screen.dart';
 import '../../features/view/my_slots/presentation/view/my_slots_screen.dart';
 import '../../features/view/service_location/presentation/view/selected_service_location_screen.dart';
 import '../../features/view/services/presentation/view/add_services.dart';
@@ -34,6 +36,8 @@ abstract class AppRoutes {
   static const selectedServiceLocationScreen = _Path.selectedServiceLocationScreen;
   static const walletScreen = _Path.walletScreen;
   static const mySlotsScreen = _Path.mySlotsScreen;
+  static const mySlotsCreateScreen = _Path.mySlotsCreateScreen;
+  static const appointmentSlotsCreate = _Path.appointmentSlotCreate;
 }
 
 abstract class _Path {
@@ -55,6 +59,8 @@ abstract class _Path {
   static const selectedServiceLocationScreen = "/selectedServiceLocationScreen";
   static const walletScreen = "/walletScreen";
   static const mySlotsScreen = "/mySlotsScreen";
+  static const mySlotsCreateScreen = "/mySlotsCreateScreen";
+  static const appointmentSlotCreate = "/appointmentSlotCreate";
 }
 
 class AppPageRoutes {
@@ -140,6 +146,16 @@ class AppPageRoutes {
     GetPage(
       name: AppRoutes.mySlotsScreen,
       page: () =>  MySlotsScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.mySlotsCreateScreen,
+      page: () =>  MySlotCreateScreen(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.appointmentSlotsCreate,
+      page: () =>  AppointmnetSlotCreate(),
       transition: Transition.cupertino,
     ),
   ];

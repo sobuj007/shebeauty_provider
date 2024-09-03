@@ -13,6 +13,9 @@ class NetworkConfiguration {
   static const String orders = "orders";
   static const String timeSlot = "myslots";
   static const String appointmentSlotShow = "appointmentslots/slot/";
+  static const String createAppointment = "appointmentslots/store";
+  static const String mySlotCreate = "myslots/store";
+  static const String mySlotsList = "myslots";
   static const int success = 0;
   static const String successs = "Status.success";
   static const int error = 1;
