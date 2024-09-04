@@ -46,6 +46,7 @@ class SignupController extends GetxController{
         var formData = {
           "name": companyNameController.value.text,
           "email": emailController.value.text,
+          "role": "agent",
           "password": passwordController.value.text,
           "password_confirmation": confirmPasswordController.value.text,
         };

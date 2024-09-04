@@ -23,7 +23,7 @@ class LoginController extends GetxController{
       LoginWithIdPassUseCase(locator<SignInRepository>());
       if (emailController.value.text.isEmpty && (session.getEmail?.isEmpty ?? false)) {
         errorToast(context: context, msg: "Please enter email");
-      } else if (passwordController.value.text.isEmpty) {
+      } else if (passwordController.value.text.isEmpty && (session.getPassword?.isEmpty ?? false)) {
         errorToast(context: context, msg: "Please enter password");
       }  else {
         isLoading.value = true;
@@ -39,9 +39,6 @@ class LoginController extends GetxController{
                 password: passwordController.value.text);
           }else{
             session.setToken = response?.data?.token ?? '';
-            session.createSession(response?.data,
-                email : session.getEmail ?? emailController.value.text,
-                password: session.getPassword ?? passwordController.value.text);
           }
           print("this is token ${session.getToken}");
           if (!context.mounted) return;
