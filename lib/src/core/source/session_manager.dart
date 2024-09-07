@@ -12,6 +12,7 @@ class SessionManager {
         setPassword = password;
         setEmail = email;
         setFullName = loginModelData?.user?.name;
+        setPhoto = loginModelData?.profile?.img;
       return true;
     } catch (e) {
       return false;

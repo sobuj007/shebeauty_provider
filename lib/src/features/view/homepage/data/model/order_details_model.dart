@@ -4,11 +4,12 @@ class OrderDetailsModel {
   String? agentId;
   String? totalAmount;
   String? orderDate;
+  String? userreqtime;
   String? status;
   String? createdAt;
   String? updatedAt;
   List<OrderProducts>? orderProducts;
-  Null? payment;
+  String? payment; // Change Null? to String?
 
   OrderDetailsModel(
       {this.id,
@@ -16,6 +17,7 @@ class OrderDetailsModel {
         this.agentId,
         this.totalAmount,
         this.orderDate,
+        this.userreqtime,
         this.status,
         this.createdAt,
         this.updatedAt,
@@ -24,41 +26,42 @@ class OrderDetailsModel {
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['user_id'];
-    agentId = json['agent_id'];
-    totalAmount = json['total_amount'];
-    orderDate = json['order_date'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    userId = json['user_id']?.toString();
+    agentId = json['agent_id']?.toString();
+    totalAmount = json['total_amount']?.toString();
+    orderDate = json['order_date']?.toString();
+    userreqtime = json['userreqtime']?.toString();
+    status = json['status']?.toString();
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
     if (json['order_products'] != null) {
       orderProducts = <OrderProducts>[];
       json['order_products'].forEach((v) {
-        orderProducts!.add(new OrderProducts.fromJson(v));
+        orderProducts!.add(OrderProducts.fromJson(v));
       });
     }
-    payment = json['payment'];
+    payment = json['payment']?.toString(); // Handling null properly
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['agent_id'] = this.agentId;
-    data['total_amount'] = this.totalAmount;
-    data['order_date'] = this.orderDate;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.orderProducts != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['agent_id'] = agentId;
+    data['total_amount'] = totalAmount;
+    data['order_date'] = orderDate;
+    data['userreqtime'] = userreqtime;
+    data['status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (orderProducts != null) {
       data['order_products'] =
-          this.orderProducts!.map((v) => v.toJson()).toList();
+          orderProducts!.map((v) => v.toJson()).toList();
     }
-    data['payment'] = this.payment;
+    data['payment'] = payment;
     return data;
   }
 }
-
 class OrderProducts {
   int? id;
   String? orderId;
@@ -87,39 +90,38 @@ class OrderProducts {
 
   OrderProducts.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    orderId = json['order_id'];
-    serviceProductId = json['service_product_id'];
-    productQuantity = json['product_quantity'];
-    productPrice = json['product_price'];
-    serviceQuantity = json['service_quantity'];
-    servicePrice = json['service_price'];
-    selectedSlot = json['selected_slot'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    orderId = json['order_id']?.toString();
+    serviceProductId = json['service_product_id']?.toString();
+    productQuantity = json['product_quantity']?.toString();
+    productPrice = json['product_price']?.toString();
+    serviceQuantity = json['service_quantity']?.toString();
+    servicePrice = json['service_price']?.toString();
+    selectedSlot = json['selected_slot']?.toString();
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
     serviceProduct = json['service_product'] != null
-        ? new ServiceProduct.fromJson(json['service_product'])
+        ? ServiceProduct.fromJson(json['service_product'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['order_id'] = this.orderId;
-    data['service_product_id'] = this.serviceProductId;
-    data['product_quantity'] = this.productQuantity;
-    data['product_price'] = this.productPrice;
-    data['service_quantity'] = this.serviceQuantity;
-    data['service_price'] = this.servicePrice;
-    data['selected_slot'] = this.selectedSlot;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.serviceProduct != null) {
-      data['service_product'] = this.serviceProduct!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['order_id'] = orderId;
+    data['service_product_id'] = serviceProductId;
+    data['product_quantity'] = productQuantity;
+    data['product_price'] = productPrice;
+    data['service_quantity'] = serviceQuantity;
+    data['service_price'] = servicePrice;
+    data['selected_slot'] = selectedSlot;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (serviceProduct != null) {
+      data['service_product'] = serviceProduct!.toJson();
     }
     return data;
   }
 }
-
 class ServiceProduct {
   int? id;
   String? agentId;
@@ -128,7 +130,7 @@ class ServiceProduct {
   String? bodypartId;
   String? cityId;
   String? locationIds;
-  Null? slotId;
+  String? slotId;
   String? appointmentSlotIds;
   String? name;
   String? description;
@@ -160,43 +162,43 @@ class ServiceProduct {
 
   ServiceProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    agentId = json['agent_id'];
-    categoryId = json['category_id'];
-    subcategoryId = json['subcategory_id'];
-    bodypartId = json['bodypart_id'];
-    cityId = json['city_id'];
-    locationIds = json['location_ids'];
-    slotId = json['slot_id'];
-    appointmentSlotIds = json['appointment_slot_ids'];
-    name = json['name'];
-    description = json['description'];
-    image = json['image'];
-    productPrice = json['product_price'];
-    servicePrice = json['service_price'];
-    gender = json['gender'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    agentId = json['agent_id']?.toString();
+    categoryId = json['category_id']?.toString();
+    subcategoryId = json['subcategory_id']?.toString();
+    bodypartId = json['bodypart_id']?.toString();
+    cityId = json['city_id']?.toString();
+    locationIds = json['location_ids']?.toString();
+    slotId = json['slot_id']?.toString();
+    appointmentSlotIds = json['appointment_slot_ids']?.toString();
+    name = json['name']?.toString();
+    description = json['description']?.toString();
+    image = json['image']?.toString();
+    productPrice = json['product_price']?.toString();
+    servicePrice = json['service_price']?.toString();
+    gender = json['gender']?.toString();
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['agent_id'] = this.agentId;
-    data['category_id'] = this.categoryId;
-    data['subcategory_id'] = this.subcategoryId;
-    data['bodypart_id'] = this.bodypartId;
-    data['city_id'] = this.cityId;
-    data['location_ids'] = this.locationIds;
-    data['slot_id'] = this.slotId;
-    data['appointment_slot_ids'] = this.appointmentSlotIds;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['image'] = this.image;
-    data['product_price'] = this.productPrice;
-    data['service_price'] = this.servicePrice;
-    data['gender'] = this.gender;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['agent_id'] = agentId;
+    data['category_id'] = categoryId;
+    data['subcategory_id'] = subcategoryId;
+    data['bodypart_id'] = bodypartId;
+    data['city_id'] = cityId;
+    data['location_ids'] = locationIds;
+    data['slot_id'] = slotId;
+    data['appointment_slot_ids'] = appointmentSlotIds;
+    data['name'] = name;
+    data['description'] = description;
+    data['image'] = image;
+    data['product_price'] = productPrice;
+    data['service_price'] = servicePrice;
+    data['gender'] = gender;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

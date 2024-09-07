@@ -47,6 +47,7 @@ class SignupController extends GetxController{
           "name": companyNameController.value.text,
           "email": emailController.value.text,
           "password": passwordController.value.text,
+          "agent" : "agent",
           "password_confirmation": confirmPasswordController.value.text,
         };
         var response = await signUpPassUseCase(formData);

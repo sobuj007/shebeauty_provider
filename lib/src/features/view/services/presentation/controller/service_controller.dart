@@ -2,13 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
 
 import '../../../../../core/di/app_component.dart';
 import '../../../../../core/model/dropdown_model.dart';
+import '../../../../widgets/custom_toast/custom_toast.dart';
 import '../../../homepage/data/model/appointment_slot_model.dart';
 import '../../../homepage/data/model/time_slot_model.dart';
 import '../../../homepage/domain/repository/get_all_product_repository.dart';
 import '../../../homepage/domain/usecase/experts_create_pass_usecase.dart';
+import '../../domain/repository/service_repository.dart';
+import '../../domain/usecase/service_pass_usecase.dart';
 
 class ServiceController extends GetxController {
   List<File?> images = <File?>[].obs;
@@ -26,12 +30,11 @@ class ServiceController extends GetxController {
   var selectedAppointmentTimeSlot = [].obs;
   var timeSlotModel = TimeSlotModel().obs;
   var appointmentSlotModel = AppointmentSlotModel().obs;
+  var genderForAddServices = "".obs;
   var isLoadingTimeSlot = false.obs;
-  var serviceDescriptionController = TextEditingController(
-          text:
-              'Lorem ipsum dolor sit amet consectetur. Turpis augue quis eget maecenas in euismod sit. Eget mauris scelerisque risus donec commodo fermentum. Pretium egestas pretium senectus bibendum blandit sed. Diam posuere augue molestie velit aliquam pharetra aliquet.')
-      .obs;
-
+  var homeController = locator<HomepageController>();
+  var serviceDescriptionController = TextEditingController().obs;
+  var isDataSubmited = false.obs;
   @override
   void onInit() async{
    await timeSlotFunction();
@@ -74,9 +77,9 @@ class ServiceController extends GetxController {
     update();
   }
   Future<void> appointmentSlotFunction({required String id}) async {
-    print("this is products");
-    // try {
-    //   isLoadingAppointmentSlot.value = true;
+    print("this is products77777");
+    try {
+      isLoadingTimeSlot.value = true;
     AppointmentSlotPassUseCase appointmentSlotPassUseCase =
     AppointmentSlotPassUseCase(locator<GetAllProductRepository>());
     var response = await appointmentSlotPassUseCase(id: id);
@@ -88,18 +91,87 @@ class ServiceController extends GetxController {
       appointmentSlotModel.value.data?.clear();
       print("this is value");
     }
-    // } catch (e) {
-    //   print(e.toString());
-    // } finally {
-    //   isLoadingAppointmentSlot.value = false;
-    // }
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      isLoadingTimeSlot.value = false;
+    }
   }
 
-  addService(){
-
+  addService(BuildContext context) async {
+    if(nameController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter name");
+    }else if(homeController.selectedCategory?.id == 0){
+      errorToast(context: context, msg: "Please enter category");
+    }else if(homeController.selectedSubCategory?.id == 0){
+      errorToast(context: context, msg: "Please select sub category");
+    }else if(homeController.selectedBodyPart?.id == 0){
+      errorToast(context: context, msg: "Please select body part");
+    }else if(homeController.selectedCity?.id == 0){
+      errorToast(context: context, msg: "Please select city");
+    }else if(homeController.selectedLocations.isEmpty){
+      errorToast(context: context, msg: "Please select location");
+    }else if(homeController.selectedTimeSlot?.id == 0){
+      errorToast(context: context, msg: "Please select time slot");
+    }else if(homeController.selectedAppointmentTimeSlot.isEmpty){
+      errorToast(context: context, msg: "Please select appointment timeslot");
+    } else if(servicesPriceController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter service price");
+    }else if(withProductPriceController.value.text.isEmpty){
+      errorToast(context: context, msg: "Please enter product price");
+    }else if( genderForAddServices.value.isEmpty){
+      errorToast(context: context, msg: "Please select gender");
+    }
+    else{
+     try{
+       isDataSubmited.value = true;
+       ServicePassUseCase servicePassUseCase =
+       ServicePassUseCase(locator<ServiceRepository>());
+       var formData =     {
+         "name": nameController.value.text,
+         "description": serviceDescriptionController.value.text,
+         "product_price": withProductPriceController.value.text,
+         "service_price": servicesPriceController.value.text,
+         "gender": genderForAddServices.value,
+         "category_id": homeController.selectedCategory?.id.toString() ?? '',
+         "subcategory_id": homeController.selectedSubCategory?.id.toString() ?? '',
+         "bodypart_id": homeController.selectedBodyPart?.id.toString() ?? '',
+         "city_id": homeController.selectedCity?.id.toString() ?? '',
+         "location_ids": homeController.selectedLocations ,
+         "available_slot_id": homeController.selectedTimeSlot?.id ?? '',
+         "appointment_slot_ids": homeController.selectedAppointmentTimeSlot
+       };
+       var response = await servicePassUseCase(formData);
+       if (response?.data != null) {
+         print("this is not here");
+         successToast(context: context, msg: response?.data?.message ?? '');
+         clearData();
+       } else {
+         print("this is value");
+       }
+     }catch(e){
+       isDataSubmited.value = false;
+     }finally{
+       isDataSubmited.value = false;
+     }
+    }
   }
 
-
+clearData(){
+    nameController.value.clear();
+    serviceDescriptionController.value.clear();
+    servicesPriceController.value.clear();
+    withProductPriceController.value.clear();
+    genderForAddServices.value = '';
+    homeController.selectedCategory = null;
+    homeController.selectedSubCategory = null;
+    homeController.selectedBodyPart = null;
+    homeController.selectedCity = null;
+    homeController.selectedLocations.value = ['0'];
+    homeController.selectedTimeSlot = null;
+    homeController.selectedAppointmentTimeSlot.value = ['0'];
+    update();
+}
 
   void addLocation(item) {
     print("this is id ${item.id}");

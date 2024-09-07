@@ -23,7 +23,7 @@ class LoginController extends GetxController{
       LoginWithIdPassUseCase(locator<SignInRepository>());
       if (emailController.value.text.isEmpty && (session.getEmail?.isEmpty ?? false)) {
         errorToast(context: context, msg: "Please enter email");
-      } else if (passwordController.value.text.isEmpty) {
+      } else if (passwordController.value.text.isEmpty && (session.getPassword?.isEmpty ?? false)) {
         errorToast(context: context, msg: "Please enter password");
       }  else {
         isLoading.value = true;

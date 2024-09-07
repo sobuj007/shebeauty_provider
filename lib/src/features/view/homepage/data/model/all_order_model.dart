@@ -4,11 +4,12 @@ class AllOrdersModel {
   String? agentId;
   String? totalAmount;
   String? orderDate;
+  var userreqtime;
   String? status;
   String? createdAt;
   String? updatedAt;
   List<OrderProducts>? orderProducts;
-  Null? payment;
+  var payment;
 
   AllOrdersModel(
       {this.id,
@@ -16,6 +17,7 @@ class AllOrdersModel {
         this.agentId,
         this.totalAmount,
         this.orderDate,
+        this.userreqtime,
         this.status,
         this.createdAt,
         this.updatedAt,
@@ -28,6 +30,7 @@ class AllOrdersModel {
     agentId = json['agent_id'];
     totalAmount = json['total_amount'];
     orderDate = json['order_date'];
+    userreqtime = json['userreqtime'];
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -47,6 +50,7 @@ class AllOrdersModel {
     data['agent_id'] = this.agentId;
     data['total_amount'] = this.totalAmount;
     data['order_date'] = this.orderDate;
+    data['userreqtime'] = this.userreqtime;
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
@@ -128,7 +132,7 @@ class ServiceProduct {
   String? bodypartId;
   String? cityId;
   String? locationIds;
-  Null? slotId;
+  String? slotId;
   String? appointmentSlotIds;
   String? name;
   String? description;

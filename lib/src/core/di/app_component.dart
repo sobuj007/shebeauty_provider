@@ -8,6 +8,7 @@ import 'package:shebeauty_provider/src/features/view/homepage/presentation/contr
 import 'package:shebeauty_provider/src/features/view/my_slots/data/source/myslot_creation_service.dart';
 import 'package:shebeauty_provider/src/features/view/my_slots/presentation/controller/my_slot_create_controller.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/controller/profile_controller.dart';
+import 'package:shebeauty_provider/src/features/view/services/data/source/service_service.dart';
 import 'package:shebeauty_provider/src/features/view/services/presentation/controller/service_controller.dart';
 import 'package:shebeauty_provider/src/features/view/splash_screen/controller/splash_screen_controller.dart';
 
@@ -26,7 +27,12 @@ import '../../features/view/homepage/data/source/get_all_product_service.dart';
 import '../../features/view/homepage/domain/repository/get_all_product_repository.dart';
 import '../../features/view/my_slots/data/repository/myslot_creation_repository_impl.dart';
 import '../../features/view/my_slots/domain/repository/myslot_creation_repository.dart';
+import '../../features/view/profile_screen/data/repository/store_profile_repository_impl.dart';
+import '../../features/view/profile_screen/data/source/store_profile_service.dart';
+import '../../features/view/profile_screen/domain/repository/store_profile_repository.dart';
 import '../../features/view/service_location/presentation/controller/service_location_controller.dart';
+import '../../features/view/services/data/repository/service_repository_impl.dart';
+import '../../features/view/services/domain/repository/service_repository.dart';
 import '../network/configuration.dart';
 import '../source/dio_client.dart';
 import '../source/pref_manager.dart';
@@ -58,8 +64,6 @@ Future<void> init() async {
   locator.registerFactory<ExpartCreateRepository>(
           () => ExpartCreateRepositoryImpl(locator<ExpartCreateService>()));
 
-  // profile screen
-  locator.registerFactory<ProfileController>(() => Get.put(ProfileController()));
   // homepage
   locator.registerFactory<HomepageController>(() => Get.put(HomepageController()));
   locator.registerFactory<GetAllProductService>(() => GetAllProductService());
@@ -74,8 +78,22 @@ Future<void> init() async {
   locator.registerFactory<MySlotCreateRepository>(
           () => MySlotCreateRepositoryImpl(locator<MySlotCreateService>()));
 
-
+//service
   locator.registerFactory<ServiceController>(() => Get.put(ServiceController()));
+  locator.registerFactory<ServiceProductService>(() => ServiceProductService());
+  locator.registerFactory<ServiceRepository>(
+          () => ServiceRepositoryImpl(locator<ServiceProductService>()));
+
+
+
+//store profile
+  locator.registerFactory<ProfileController>(() => Get.put(ProfileController()));
+  locator.registerFactory<StoreProfileService>(() => StoreProfileService());
+  locator.registerFactory<StoreProfileRepository>(
+          () => StoreProfileRepositoryImpl(locator<StoreProfileService>()));
+
+
+
   locator.registerFactory<ServiceLocationController>(() => Get.put(ServiceLocationController()));
 
   //session

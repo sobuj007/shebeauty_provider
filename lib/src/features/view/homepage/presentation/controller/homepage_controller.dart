@@ -53,8 +53,8 @@ class HomepageController extends GetxController {
   List<DropdownModel> timeSlotList = [];
   DropdownModel? selectedTimeSlot;
   var locationList = [].obs;
-  var selectedLocations = [].obs;
-  var selectedAppointmentTimeSlot = [].obs;
+  RxList<String> selectedLocations = <String>[].obs;
+  var selectedAppointmentTimeSlot = ['0'].obs;
   Rx<File> pickedImage = File("").obs;
   final ImagePicker pickerSingle = ImagePicker();
   HomepageController() {
@@ -69,7 +69,9 @@ class HomepageController extends GetxController {
     });
   }
   Future<void> pickImageForCertificate() async {
+    print("this is image");
     if (await Permission.storage.request().isGranted) {
+      print("this is image");
       XFile? xFile = await pickerSingle.pickImage(source: ImageSource.gallery);
       if (xFile != null) {
           pickedImage.value = File(xFile.path);
@@ -81,7 +83,6 @@ class HomepageController extends GetxController {
     } else if (await Permission.storage.request().isDenied) {
       await Permission.storage.request();
     }
-
     update();
   }
   void filterCategories() {
@@ -205,28 +206,29 @@ class HomepageController extends GetxController {
     }
     update();
   }
-void addLocation(item) {
-  print("this is id ${item.id}");
-    if (!selectedLocations.contains(item)) {
-      selectedLocations.add(item.id);
+  void addLocation(item) {
+    print("this is id ${item.name}");
+    if (!selectedLocations.contains(item.id.toString())) {
+      selectedLocations.add(item.id.toString());
     }
+    update();
   }
 
   void removeLocation(item) {
-    print("this is remove id ${item.id}");
-    selectedLocations.remove(item.id);
+    selectedLocations.remove(item.id.toString());
+    update();
   }
 
 void addAppointmentSlot(item) {
   print("this is id ${item.id}");
     if (!selectedAppointmentTimeSlot.contains(item)) {
-      selectedAppointmentTimeSlot.add(item.id);
+      selectedAppointmentTimeSlot.add(item.id.toString());
     }
   }
 
   void removeAppointment(item) {
     print("this is remove id ${item.id}");
-    selectedAppointmentTimeSlot.remove(item.id);
+    selectedAppointmentTimeSlot.remove(item.id.toString());
   }
 
 
@@ -270,7 +272,7 @@ void addAppointmentSlot(item) {
   }
 
   serviceProductFunction() async {
-    print("this is products");
+    print("this is products11111");
     try {
       isLoadingServiceProducts.value = true;
       ServiceProductsPassUseCase serviceProductsPassUseCase =
@@ -292,7 +294,7 @@ void addAppointmentSlot(item) {
   }
 
   expertsListFunction() async {
-    print("this is products");
+    print("this is products222222");
     try {
       isLoadingExpertsList.value = true;
       ExpertsListPassUseCase expertsListPassUseCase =
@@ -313,7 +315,7 @@ void addAppointmentSlot(item) {
   }
 
   appointmentSlotFunction({required String id}) async {
-    print("this is products $id");
+    print("this is products333333 $id");
     try {
       isLoadingAppointmentSlot.value = true;
       AppointmentSlotPassUseCase appointmentSlotPassUseCase =

@@ -112,20 +112,19 @@ class AddServicesScreen extends StatelessWidget {
                                             homeController.locationList[index];
                                         return Row(
                                           children: [
-                                            Obx(() => Checkbox(
-                                                  value: homeController
-                                                      .selectedLocations
-                                                      .contains(item.id),
-                                                  onChanged: (bool? isChecked) {
-                                                    if (isChecked == true) {
-                                                      homeController
-                                                          .addLocation(item);
-                                                    } else {
-                                                      homeController
-                                                          .removeLocation(item);
-                                                    }
-                                                  },
-                                                )),
+                                            Obx(
+                                                  () => Checkbox(
+                                                value: homeController.selectedLocations.contains(item.id.toString()),
+                                                onChanged: (bool? isChecked) {
+                                                  if (isChecked == true) {
+                                                    homeController.addLocation(item);
+                                                  } else {
+                                                    homeController.removeLocation(item);
+                                                  }
+                                                },
+                                              ),
+                                            ),
+
                                             CustomText(text: item.name),
                                           ],
                                         );
@@ -172,10 +171,10 @@ class AddServicesScreen extends StatelessWidget {
                                               onChanged: (bool? isChecked) {
                                                 if (isChecked == true) {
                                                   homeController
-                                                      .addLocation(item);
+                                                      .addAppointmentSlot(item);
                                                 } else {
                                                   homeController
-                                                      .removeLocation(item);
+                                                      .removeAppointment(item);
                                                 }
                                               },
                                             )),
@@ -253,31 +252,31 @@ class AddServicesScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 letterSpacing: 0.15,
                               ),
-                              5.ph,
-                              InkWell(
-                                onTap: () =>
-                                    homeController.pickImageForCertificate(),
-                                child: SizedBox(
-                                  height: 75,
-                                  width: 90,
-                                  child: (homeController.pickedImage.value.path.isNotEmpty)
-                                      ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.file(
-                                      File(homeController.pickedImage.value.path),
-                                      height: 75,
-                                      width: 74,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
-                                      : const Center(
-                                    child: Icon(
-                                      Icons.add_photo_alternate,
-                                      size: 22,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // 5.ph,
+                              // InkWell(
+                              //   onTap: () =>
+                              //       homeController.pickImageForCertificate(),
+                              //   child: SizedBox(
+                              //     height: 75,
+                              //     width: 90,
+                              //     child: (homeController.pickedImage.value.path.isNotEmpty)
+                              //         ? ClipRRect(
+                              //       borderRadius: BorderRadius.circular(5),
+                              //       child: Image.file(
+                              //         File(homeController.pickedImage.value.path),
+                              //         height: 75,
+                              //         width: 74,
+                              //         fit: BoxFit.fill,
+                              //       ),
+                              //     )
+                              //         : const Center(
+                              //       child: Icon(
+                              //         Icons.add_photo_alternate,
+                              //         size: 22,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               15.ph,
                               Obx(()=> Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -291,9 +290,9 @@ class AddServicesScreen extends StatelessWidget {
                                             height: 13,
                                             width: 13,
                                             child: Radio(
-                                                value: "male", groupValue: homeController.genderForAddServices.value, onChanged: (value){
+                                                value: "male", groupValue: controller.genderForAddServices.value, onChanged: (value){
                                                   print("The gender value $value");
-                                              homeController.genderForAddServices.value = value!;
+                                              controller.genderForAddServices.value = value!;
                                             }),
                                           ),
                                           Icon(Icons.boy, size: 23,),
@@ -305,8 +304,8 @@ class AddServicesScreen extends StatelessWidget {
                                           SizedBox(
                                             height: 13,
                                             width: 13,
-                                            child: Radio(value: "Female", groupValue: homeController.genderForAddServices.value, onChanged: (value){
-                                              homeController.genderForAddServices.value = value!;
+                                            child: Radio(value: "Female", groupValue: controller.genderForAddServices.value, onChanged: (value){
+                                              controller.genderForAddServices.value = value!;
                                             }),
                                           ),
                                           Icon(Icons.girl, size: 23,)
@@ -355,7 +354,9 @@ class AddServicesScreen extends StatelessWidget {
                                 onPress: () {
                                   Get.offAllNamed(AppRoutes.parentScreen);
                                 },
-                                text: const CustomText(
+                                text: controller.isDataSubmited.value == true ? Center(
+                                  child: CircularProgressIndicator(),
+                                ) : CustomText(
                                   text: "Submit",
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
