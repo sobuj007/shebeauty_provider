@@ -39,9 +39,6 @@ class LoginController extends GetxController{
                 password: passwordController.value.text);
           }else{
             session.setToken = response?.data?.token ?? '';
-            session.createSession(response?.data,
-                email : session.getEmail ?? emailController.value.text,
-                password: session.getPassword ?? passwordController.value.text);
           }
           print("this is token ${session.getToken}");
           if (!context.mounted) return;

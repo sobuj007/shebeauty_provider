@@ -84,7 +84,9 @@ class LoginScreen extends StatelessWidget {
 
                         },
                         // RouteGenerator.pushNamed(context, Routes.mortgageResultPage);
-                        text: const CustomText(
+                        text: controller.isLoading.value == true ? const Center(
+                          child: CircularProgressIndicator(),
+                        ) : const CustomText(
                           text: "Login",
                           textColor: Colors.black,
                           fontSize: 16,

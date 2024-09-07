@@ -12,7 +12,9 @@ var controller = locator<HomepageController>();
   Widget build(BuildContext context) {
     return Obx(()=> SizedBox(
       height: 100,
-      child: ListView.builder(
+      child: controller.isLoading.value == true ? const Center(
+        child: CircularProgressIndicator(),
+      ) : ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: controller.getAllProductModel.value.category?.length,
           itemBuilder: (_, index){
