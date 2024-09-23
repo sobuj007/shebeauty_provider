@@ -41,3 +41,15 @@ abstract class AppointmentSlotUseCase {
 
   AppointmentSlotUseCase(this.getAllProductRepository);
 }
+
+abstract class PromotionBannerUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  PromotionBannerUseCase(this.getAllProductRepository);
+}
+
+abstract class ReviewUseCase {
+  final GetAllProductRepository getAllProductRepository;
+
+  ReviewUseCase(this.getAllProductRepository);
+}

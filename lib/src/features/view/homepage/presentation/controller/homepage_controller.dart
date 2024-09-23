@@ -8,6 +8,7 @@ import 'package:shebeauty_provider/src/core/model/dropdown_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/appointment_slot_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/experts_list_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/order_details_model.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/data/model/promotion_banner.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/service_list_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/time_slot_model.dart';
 
@@ -15,6 +16,7 @@ import '../../../../../core/di/app_component.dart';
 import '../../../../widgets/custom_toast/custom_toast.dart';
 import '../../data/model/all_order_model.dart';
 import '../../data/model/get_all_product_model.dart';
+import '../../data/model/review_model.dart';
 import '../../domain/repository/get_all_product_repository.dart';
 import '../../domain/usecase/experts_create_pass_usecase.dart';
 
@@ -29,11 +31,15 @@ class HomepageController extends GetxController {
   var isLoadingOrderList = false.obs;
   var isLoadingOrderDetails = false.obs;
   var isLoadingServiceProducts = false.obs;
+  var isPromotionBannerLoading = false.obs;
+  var isReviewModelLoading = false.obs;
   var isLoadingExpertsList = false.obs;
   var isLoadingAppointmentSlot = false.obs;
   var isLoadingTimeSlot = false.obs;
   var getAllProductModel = GetAllProductModel().obs;
   var serviceProductModel = ServiceModel().obs;
+  var promotionBannerModel = PromotionBannerModel().obs;
+  var reviewModel = ReviewModel().obs;
   var expertsListModel = ExpertsListModel().obs;
   var appointmentSlotModel = AppointmentSlotModel().obs;
   var getOrderModel = <AllOrdersModel>[].obs;
@@ -115,6 +121,8 @@ class HomepageController extends GetxController {
     expertsListFunction();
     timeSlotFunction();
     appointmentSlotFunction(id: "1");
+    promotionBannerFunction();
+    reviewFunction();
     filteredCategories.value = List<Category>.from(allCategories);
     super.onInit();
   }
@@ -290,6 +298,50 @@ void addAppointmentSlot(item) {
       print(e.toString());
     } finally {
       isLoadingServiceProducts.value = false;
+    }
+  }
+
+  promotionBannerFunction() async {
+    print("this is products11111");
+    try {
+      isPromotionBannerLoading.value = true;
+      PromotionBannerPassUseCase promotionBannerPassUseCase =
+          PromotionBannerPassUseCase(locator<GetAllProductRepository>());
+      var response = await promotionBannerPassUseCase();
+      print(response?.data);
+      if (response?.data != null) {
+        promotionBannerModel.value = response?.data ?? PromotionBannerModel();
+        print(
+            "Promotion banner Model ${promotionBannerModel.value.data?.first.title}");
+      } else {
+        print("this is value");
+      }
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      isPromotionBannerLoading.value = false;
+    }
+  }
+
+  reviewFunction() async {
+    print("this is preview");
+    try {
+      isReviewModelLoading.value = true;
+      ReviewPassUseCase promotionBannerPassUseCase =
+          ReviewPassUseCase(locator<GetAllProductRepository>());
+      var response = await promotionBannerPassUseCase();
+      print(response?.data);
+      if (response?.data != null) {
+        reviewModel.value = response?.data ?? ReviewModel();
+        print(
+            "review Model ${reviewModel.value.reviews?.first.comment}");
+      } else {
+        print("this is value");
+      }
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      isReviewModelLoading.value = false;
     }
   }
 

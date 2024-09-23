@@ -9,6 +9,8 @@ import '../model/all_order_model.dart';
 import '../model/get_all_product_model.dart';
 import 'package:dio/dio.dart' as dio;
 import '../model/order_details_model.dart';
+import '../model/promotion_banner.dart';
+import '../model/review_model.dart';
 import '../source/get_all_product_service.dart';
 
 class GetAllProductRepositoryImpl extends GetAllProductRepository {
@@ -61,6 +63,18 @@ class GetAllProductRepositoryImpl extends GetAllProductRepository {
       {required String id}) async {
     Response<OrderDetailsModel>? apiResponse;
     apiResponse = await getAllProductService.orderDetailsPass(id: id);
+    return apiResponse;
+  }
+  @override
+  Future<Response<PromotionBannerModel>?> promotionBanner() async {
+    Response<PromotionBannerModel>? apiResponse;
+    apiResponse = await getAllProductService.promotionBanner();
+    return apiResponse;
+  }
+  @override
+  Future<Response<ReviewModel>?> review() async {
+    Response<ReviewModel>? apiResponse;
+    apiResponse = await getAllProductService.review();
     return apiResponse;
   }
 }

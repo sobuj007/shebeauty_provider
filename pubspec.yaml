@@ -54,6 +54,7 @@ dependencies:
   image_picker: ^1.1.2
   permission_handler: ^11.3.1
   intl:
+  card_swiper:
 
 dev_dependencies:
   flutter_test:

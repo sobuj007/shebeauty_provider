@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shebeauty_provider/src/core/utils/app_colors.dart';
+import 'package:shebeauty_provider/src/core/utils/app_sizes.dart';
 import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/view/profile_setting_screen.dart';
 
+import '../../../core/source/dio_client.dart';
 import '../../../core/utils/app_assets.dart';
+import '../../widgets/custom_text/custom_text.dart';
 import '../homepage/presentation/view/screen/homepage.dart';
 import '../homepage/presentation/view/screen/order_list_full_screen.dart';
 import '../profile_screen/presentation/view/profile_screen.dart';
@@ -69,10 +72,11 @@ class _ParentScreenState extends State<ParentScreen> {
       appBar: AppBar(
         // toolbarHeight: 100,
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
         ),
+        title: CustomText(text: "Welcome, ${session.getFullName ?? ''}", textColor: AppColors.appColor, fontSize: AppSizes.size16,),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
@@ -80,8 +84,9 @@ class _ParentScreenState extends State<ParentScreen> {
               // Add action here
             },
             icon: Icon(
-              Icons.notifications_none,
+              Icons.notifications,
               size: 21,
+              color: AppColors.appColor,
             ),
           )
         ],

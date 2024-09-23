@@ -1,8 +1,10 @@
 
 
+import 'package:get/get.dart';
 import 'package:shebeauty_provider/src/core/source/pref_manager.dart';
 
 import '../../features/view/auth/login/data/model/login_model.dart';
+import '../routes/AppRouts.dart';
 
 class SessionManager {
   Future<bool> createSession(LoginModel? loginModelData, {String? email,  String? password}) async {
@@ -13,6 +15,7 @@ class SessionManager {
         setEmail = email;
         setFullName = loginModelData?.user?.name;
         setPhoto = loginModelData?.profile?.img;
+        setId = loginModelData?.profile?.userId;
       return true;
     } catch (e) {
       return false;
@@ -53,6 +56,11 @@ class SessionManager {
   set setPhoto(String? value) => _prefManager.saveString(
       "photo", value ?? "");
 
+  String? get getId =>
+      _prefManager.getStringValue("userid");
+  set setId(String? value) => _prefManager.saveString(
+      "userid", value ?? "");
+
 
 set setBaseUrl(String? value)=> _prefManager.saveString("baseUrl", value);
   String? get getBaseUrl =>
@@ -74,6 +82,7 @@ set setBaseUrl(String? value)=> _prefManager.saveString("baseUrl", value);
     bool response = false;
     await _prefManager.logOut().whenComplete(() {
       response = true;
+      Get.offNamed(AppRoutes.loginScreen);
     });
     return response;
   }

@@ -4,6 +4,7 @@ import 'package:shebeauty_provider/src/features/view/homepage/data/model/all_ord
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/appointment_slot_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/experts_list_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/order_details_model.dart';
+import 'package:shebeauty_provider/src/features/view/homepage/data/model/promotion_banner.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/service_list_model.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/data/model/time_slot_model.dart';
 
@@ -17,6 +18,8 @@ import '../../../../../core/utils/constants.dart';
 import '../../../../widgets/custom_toast/custom_toast.dart';
 import '../model/get_all_product_model.dart';
 import 'package:dio/dio.dart' as dio;
+
+import '../model/review_model.dart';
 
 var session = locator<SessionManager>();
 
@@ -151,6 +154,40 @@ class GetAllProductService {
       responseCallback: (response, message) {
         var registrationModel = AppointmentSlotModel.fromJson(response);
         apiResponse = Response.success(registrationModel);
+      },
+      failureCallback: (message, status) {
+        print("this is message error $message $status");
+        apiResponse = Response.error(message, status);
+      },
+    );
+
+    logger.e("api response ${apiResponse?.data}");
+    return apiResponse;
+  }
+  Future<Response<PromotionBannerModel>?> promotionBanner() async {
+    Response<PromotionBannerModel>? apiResponse;
+    await _dioClient.get(
+      path: NetworkConfiguration.promotionBanner,
+      responseCallback: (response, message) {
+        var registrationModel = PromotionBannerModel.fromJson(response);
+        apiResponse = Response.success(registrationModel);
+      },
+      failureCallback: (message, status) {
+        print("this is message error $message $status");
+        apiResponse = Response.error(message, status);
+      },
+    );
+
+    logger.e("api response ${apiResponse?.data}");
+    return apiResponse;
+  }
+  Future<Response<ReviewModel>?> review() async {
+    Response<ReviewModel>? apiResponse;
+    await _dioClient.get(
+      path: "${NetworkConfiguration.review}${session.getId}",
+      responseCallback: (response, message) {
+        var reviewModel = ReviewModel.fromJson(response);
+        apiResponse = Response.success(reviewModel);
       },
       failureCallback: (message, status) {
         print("this is message error $message $status");

@@ -8,6 +8,7 @@ import 'package:shebeauty_provider/src/features/view/service_location/presentati
 import 'package:shebeauty_provider/src/features/view/services/presentation/controller/service_controller.dart';
 
 import '../../../../../core/routes/AppRouts.dart';
+import '../../../../../core/source/dio_client.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../widgets/common_cached_network_image/common_cached_network_image.dart';
 import '../../../../widgets/custom_text/custom_text.dart';
@@ -89,7 +90,9 @@ var homeController = locator<HomepageController>();
               25.ph,
               CustomRow(icon: Icons.local_police_sharp, menuName: "Policy"),
               25.ph,
-              CustomRow(icon: Icons.logout_sharp, menuName: "Logout"),
+              InkWell(
+                  onTap: session.logout,
+                  child: CustomRow(icon: Icons.logout_sharp, menuName: "Logout")),
               25.ph,
             ],
           ),
