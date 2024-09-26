@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,7 +13,7 @@ class PromotionBannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
+    return Obx(()=> Visibility(
       visible: controller.promotionBannerModel.value.data?.isEmpty ?? false ? false : true,
       child: Container(
         height: 19.h,
@@ -65,6 +66,6 @@ class PromotionBannerWidget extends StatelessWidget {
         )
             : const Center(child: CustomText(text: "")),
       ),
-    );
+    ));
   }
 }

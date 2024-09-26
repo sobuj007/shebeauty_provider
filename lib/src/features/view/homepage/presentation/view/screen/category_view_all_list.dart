@@ -11,6 +11,7 @@ import '../../../../../../core/routes/AppRouts.dart';
 import '../../../../../../core/utils/app_assets.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../widgets/common_textField_widget/common_textfield_widget.dart';
+import '../../../data/model/get_all_product_model.dart';
 
 class CategoryViewAllList extends StatelessWidget {
   CategoryViewAllList({super.key});
@@ -18,7 +19,7 @@ class CategoryViewAllList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size1 = MediaQuery.of(context).size;
-    final double itemHeight = (size1.height - kToolbarHeight - 10) / 8;
+    final double itemHeight = (size1.height - kToolbarHeight - 10) / 6;
     final double itemWidth = size1.width / 4.1;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -26,11 +27,11 @@ class CategoryViewAllList extends StatelessWidget {
       appBar: CommonCustomAppBar(
         appbarTitle: "My Category",
         onTap: () {
-          Get.toNamed(AppRoutes.addServicesScreen);
+          // Get.toNamed(AppRoutes.addServicesScreen);
 
         },
-        icon: const Icon(Icons.add_box),
-        leadingText: "ADD",
+        // icon: const Icon(Icons.add_box),
+        // leadingText: "ADD",
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -67,8 +68,8 @@ class CategoryViewAllList extends StatelessWidget {
             15.ph,
             Expanded(
                 child: Obx(() => GridView.count(
-                      mainAxisSpacing: 3,
-                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 7,
+                      crossAxisSpacing: 4,
                       crossAxisCount: 3,
                       childAspectRatio: (itemWidth / itemHeight),
                       controller: new ScrollController(keepScrollOffset: false),
@@ -76,12 +77,34 @@ class CategoryViewAllList extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       children: controller.filteredCategories
                           .map((item) => GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                margin: new EdgeInsets.only(right: 0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.grey.withOpacity(0.3)),
+                              onTap: () {
+                                controller.filteredSubCategories.value = controller.allSubCategories
+                                    .where((subCategory) => item.id.toString() == subCategory.categoryId)
+                                    .toList();
+
+                                // filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
+                                Get.toNamed(AppRoutes.subCategoryList, arguments: {
+                                  'subCategory': item,
+                                },);
+
+                              },
+                              child: Card(
+                                color: Colors.white,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                // decoration: BoxDecoration(
+                                //     borderRadius: BorderRadius.circular(5),
+                                //     color: Colors.grey.withOpacity(0.3),
+                                //   boxShadow: [
+                                //     BoxShadow(
+                                //       color: Colors.grey.withOpacity(0.2),
+                                //       blurRadius: 4,
+                                //       offset: Offset(0, 0), // Shadow position
+                                //     ),
+                                //   ],
+                                // ),
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -125,7 +148,7 @@ class CategoryViewAllList extends StatelessWidget {
                                     ),
                                     Container(
                                         decoration: BoxDecoration(
-                                            color: Colors.grey.withOpacity(0.5),
+                                            color: Colors.grey.withOpacity(0.1),
                                             borderRadius: const BorderRadius.only(
                                                 bottomLeft: Radius.circular(5),
                                                 bottomRight:

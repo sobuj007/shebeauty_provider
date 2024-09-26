@@ -12,12 +12,14 @@ import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.
 
 import '../../../../../../core/source/dio_client.dart';
 import '../../../../../../core/utils/app_colors.dart';
+import '../../../data/model/all_order_model.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   OrderDetailsPage({super.key});
   var controller = locator<HomepageController>();
   @override
   Widget build(BuildContext context) {
+    final allOrdersModel = Get.arguments['serviceProduct'] as AllOrdersModel?;
     return Obx(() => Scaffold(
           backgroundColor: Colors.white,
           appBar:  CommonCustomAppBar(
@@ -42,8 +44,8 @@ class OrderDetailsPage extends StatelessWidget {
                             height: 139,
                             width: 108,
                             child: CommonCachedNetworkImage(
-                              imageUrl: controller.orderDetailsModel.value.orderProducts?.first.serviceProduct?.image ?? '',
-                              borderRadius: 2,
+                              imageUrl: allOrdersModel?.orderProducts?.first.serviceProduct?.image ?? '',
+                              borderRadius: 10,
                             ),
                           ),
                           10.pw,
@@ -59,17 +61,17 @@ class OrderDetailsPage extends StatelessWidget {
                                 ),
                                 10.ph,
                                 CustomRow(
-                                  heading: "Services ${controller.orderDetailsModel.value.orderProducts?.first.servicePrice ?? ''} TK",
-                                  value: "Order Date: ${controller.orderDetailsModel.value.orderDate ?? ''}",
+                                  heading: "Services ${allOrdersModel?.orderProducts?.first.serviceProduct?.servicePrice ?? ''} TK",
+                                  value: allOrdersModel?.orderDate == null ? '' : "Order Date: ${allOrdersModel?.orderDate ?? ''}",
                                 ),
                                 10.ph,
                                 CustomRow(
-                                  heading: "Product ${controller.orderDetailsModel.value.orderProducts?.first.productPrice ?? ''} TK",
-                                  value: "Amount ${controller.orderDetailsModel.value.totalAmount ?? ''}",
+                                  heading: "Product ${allOrdersModel?.orderProducts?.first.productPrice ?? ''} TK",
+                                  value: "Amount ${allOrdersModel?.totalAmount ?? ''}",
                                 ),
                                 10.ph,
                                 CustomRow(
-                                  heading: "Gender: ${controller.orderDetailsModel.value.orderProducts?.first.serviceProduct?.gender ?? ''} ",
+                                  heading: "Gender: ${allOrdersModel?.orderProducts?.first.serviceProduct?.gender ?? ''} ",
                                   value: "",
                                 ),
                               ],
@@ -169,6 +171,11 @@ class OrderDetailsPage extends StatelessWidget {
                       //     heading: "Choose Time",
                       //     value: "11:00 - 11:30 AM",
                       //     textAlign: TextAlign.end),
+                      CustomRow(
+                          heading: "Service name",
+                          value: "${allOrdersModel?.orderProducts?.first.serviceProduct?.name ?? ''}",
+                          textAlign: TextAlign.end),
+                      10.ph,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -212,7 +219,7 @@ class OrderDetailsPage extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child: CustomText(
-                                      text: controller.orderDetailsModel.value.orderProducts?.first.productQuantity ?? '',
+                                      text: allOrdersModel?.orderProducts?.first.productQuantity ?? '',
                                     ),
                                   ),
                                 ),
@@ -279,7 +286,7 @@ class OrderDetailsPage extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 10),
                                     child: CustomText(
-                                      text: controller.orderDetailsModel.value.orderProducts?.first.serviceQuantity ?? '',
+                                      text: allOrdersModel?.orderProducts?.first.serviceQuantity ?? '',
                                     ),
                                   ),
                                 ),
@@ -306,7 +313,7 @@ class OrderDetailsPage extends StatelessWidget {
                       15.ph,
                       CustomRow(
                           heading: "Total",
-                          value: "${controller.orderDetailsModel.value.totalAmount ?? ''} TK",
+                          value: "${allOrdersModel?.totalAmount ?? ''} TK",
                           textAlign: TextAlign.end),
                       10.ph,
                     ],
@@ -328,7 +335,7 @@ class OrderDetailsPage extends StatelessWidget {
                       children: [
                         CustomRow(
                             heading: "Service Charge",
-                            value: "${controller.orderDetailsModel.value.totalAmount ?? ''} TK",
+                            value: "${allOrdersModel?.orderProducts?.first.servicePrice ?? ''} TK",
                             textAlign: TextAlign.end),
                         10.ph,
                         CustomRow(
@@ -350,7 +357,8 @@ class OrderDetailsPage extends StatelessWidget {
                             letterSpacing: 0.25,
                             textColor: Colors.black,
                           ),
-                        )
+                        ),
+                        10.ph,
                       ],
                     ),
                   ),

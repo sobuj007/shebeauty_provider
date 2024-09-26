@@ -22,7 +22,11 @@ import '../../domain/usecase/experts_create_pass_usecase.dart';
 
 class HomepageController extends GetxController {
   var searchController = TextEditingController().obs;
+  var subCategorySearchController = TextEditingController().obs;
+  var bodyPartSearchController = TextEditingController().obs;
   var selectedValue = false.obs;
+  var clickedSubCategory = false.obs;
+  var clickedBodyPart = false.obs;
   var gender = 0.obs;
   var genderForAddServices = "".obs;
   var productQuantity = 1.obs;
@@ -46,8 +50,14 @@ class HomepageController extends GetxController {
   var orderDetailsModel = OrderDetailsModel().obs;
   var timeSlotModel = TimeSlotModel().obs;
   var allCategories =
-      <Category>[].obs; // This should be your full list of categories
+      <Category>[].obs;
+  var allSubCategories =
+      <Subcategory>[].obs;
+  var allBodyPartCategories =
+      <Bodypart>[].obs; // This should be your full list of categories
   var filteredCategories = <Category>[].obs;
+  var filteredSubCategories = <Subcategory>[].obs;
+  var filteredBodyPartCategories = <Bodypart>[].obs;
   List<DropdownModel> category = [];
   DropdownModel? selectedCategory;
   List<DropdownModel> subCategory = [];
@@ -66,12 +76,32 @@ class HomepageController extends GetxController {
   HomepageController() {
     // Initialize with all categories from getAllProductModel
     allCategories.value = getAllProductModel.value.category ?? [];
-    filteredCategories.value =
-        List<Category>.from(allCategories); // Clone the list
+    if(clickedSubCategory.value == true){
+      filteredSubCategories.value =
+      List<Subcategory>.from(allSubCategories);
+    }else if(clickedBodyPart.value == true){
+      filteredBodyPartCategories.value =
+      List<Bodypart>.from(allBodyPartCategories);
+    }else{
+      filteredCategories.value =
+      List<Category>.from(allCategories);
+    }
+
+
+
 
     // Add listener to searchController to filter categories as the user types
     searchController.value.addListener(() {
       filterCategories();
+    });
+    if(clickedSubCategory.value == true){
+      subCategorySearchController.value.addListener(() {
+        subCategoryFilterCategories();
+      });
+    }
+
+    bodyPartSearchController.value.addListener(() {
+      bodyPartFilterCategories();
     });
   }
   Future<void> pickImageForCertificate() async {
@@ -104,12 +134,48 @@ class HomepageController extends GetxController {
             .toLowerCase()
             .contains(query); // Assuming `name` is the field to search
       }).toList();
+
+    }
+  }
+  void subCategoryFilterCategories() {
+    String query = subCategorySearchController.value.text.toLowerCase();
+
+    if (query.isEmpty) {
+      // Show all categories if the search query is empty
+      filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
+
+    } else {
+      // Filter categories based on the search query
+
+      filteredSubCategories.value = allSubCategories.where((subCategory) {
+        return subCategory.name!
+            .toLowerCase()
+            .contains(query); // Assuming `name` is the field to search
+      }).toList();
+    }
+  }
+  void bodyPartFilterCategories() {
+    String query = bodyPartSearchController.value.text.toLowerCase();
+
+    if (query.isEmpty) {
+      // Show all categories if the search query is empty
+      filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
+
+    } else {
+      // Filter categories based on the search query
+      filteredBodyPartCategories.value = allBodyPartCategories.where((bodyPart) {
+        return bodyPart.name!
+            .toLowerCase()
+            .contains(query); // Assuming `name` is the field to search
+      }).toList();
     }
   }
 
   @override
   void onClose() {
     searchController.value.dispose();
+    subCategorySearchController.value.dispose();
+    bodyPartSearchController.value.dispose();
     super.onClose();
   }
 
@@ -124,6 +190,8 @@ class HomepageController extends GetxController {
     promotionBannerFunction();
     reviewFunction();
     filteredCategories.value = List<Category>.from(allCategories);
+    filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
+    filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
     super.onInit();
   }
 
@@ -146,7 +214,12 @@ class HomepageController extends GetxController {
         getAllProductModel.value = response?.data ?? GetAllProductModel();
 
         allCategories.value = getAllProductModel.value.category ?? [];
+        allSubCategories.value = getAllProductModel.value.subcategory ?? [];
+        allBodyPartCategories.value = getAllProductModel.value.bodypart ?? [];
         filteredCategories.value = List<Category>.from(allCategories);
+        filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
+        filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
+
         for (var item in getAllProductModel.value.category ?? []) {
           print("this is hot data ${item.name}");
           category.add(
@@ -311,8 +384,9 @@ void addAppointmentSlot(item) {
       print(response?.data);
       if (response?.data != null) {
         promotionBannerModel.value = response?.data ?? PromotionBannerModel();
-        print(
-            "Promotion banner Model ${promotionBannerModel.value.data?.first.title}");
+        for(var prom in promotionBannerModel.value.data ?? []){
+          print("promotion banner model ${prom.image} ${prom.description}");
+        }
       } else {
         print("this is value");
       }
@@ -392,8 +466,8 @@ void addAppointmentSlot(item) {
 
   getOrdersFuction() async {
     print("this is Order List");
-    try {
-      isLoadingOrderList.value = true;
+    // try {
+      // isLoadingOrderList.value = true;
       GetOrdersPassUseCase getOrdersPassUseCase =
           GetOrdersPassUseCase(locator<GetAllProductRepository>());
       var response = await getOrdersPassUseCase();
@@ -407,11 +481,11 @@ void addAppointmentSlot(item) {
         print("this is value");
       }
       isLoadingOrderList.value = false;
-    } catch (e) {
-      print(e.toString());
-    } finally {
-      isLoadingOrderList.value = false;
-    }
+    // } catch (e) {
+    //   print(e.toString());
+    // } finally {
+    //   isLoadingOrderList.value = false;
+    // }
   }
 
   orderDetailsFunction({int? id}) async {

@@ -6,8 +6,10 @@ import 'package:shebeauty_provider/src/features/view/service_location/presentati
 import '../../features/view/auth/login/presentation/screen/login_screen.dart';
 import '../../features/view/auth/signup_screen/presentation/view/signup_screen.dart';
 import '../../features/view/expart_worker_screen/presentation/view/expert_worker_screen.dart';
+import '../../features/view/homepage/presentation/view/screen/bodypart_list_page.dart';
 import '../../features/view/homepage/presentation/view/screen/order_details_page.dart';
 import '../../features/view/homepage/presentation/view/screen/order_list_full_screen.dart';
+import '../../features/view/homepage/presentation/view/screen/sub_category_list_page.dart';
 import '../../features/view/my_slots/presentation/view/my_slot_create_screen.dart';
 import '../../features/view/my_slots/presentation/view/my_slots_screen.dart';
 import '../../features/view/service_location/presentation/view/selected_service_location_screen.dart';
@@ -28,6 +30,8 @@ abstract class AppRoutes {
   static const homepage = _Path.homepage;
   static const parentScreen = _Path.parentScreen;
   static const categoryList = _Path.categoryList;
+  static const subCategoryList = _Path.subCategoryList;
+  static const bodyPart = _Path.bodyPart;
   static const servicesScreen = _Path.servicesScreen;
   static const addServicesScreen = _Path.addServicesScreen;
   static const orderListDetailsScreen = _Path.orderListDetailsScreen;
@@ -51,6 +55,8 @@ abstract class _Path {
   static const homepage = "/homepage";
   static const parentScreen = "/parentScreen";
   static const categoryList = "/categoryList";
+  static const subCategoryList = "/subCategoryList";
+  static const bodyPart = "/bodyPart";
   static const servicesScreen = "/servicesScreen";
   static const addServicesScreen = "/addServicesScreen";
   static const orderListDetailsScreen = "/orderListDetailsScreen";
@@ -106,6 +112,16 @@ class AppPageRoutes {
     GetPage(
       name: AppRoutes.categoryList,
       page: () =>  CategoryViewAllList(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.subCategoryList,
+      page: () =>  SubCategoryListPage(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: AppRoutes.bodyPart,
+      page: () =>  BodypartListPage(),
       transition: Transition.cupertino,
     ),
     GetPage(

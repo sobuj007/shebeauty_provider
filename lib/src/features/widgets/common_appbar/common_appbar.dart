@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shebeauty_provider/src/core/utils/app_sizes.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
+
+import '../../../core/utils/app_colors.dart';
 
 class CommonCustomAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -23,7 +26,7 @@ class CommonCustomAppBar extends StatelessWidget
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      title: Text(appbarTitle),
+      title: CustomText(text: appbarTitle, fontSize: AppSizes.size18, fontWeight: FontWeight.bold,),
       titleTextStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
@@ -49,9 +52,10 @@ class CommonCustomAppBar extends StatelessWidget
             IconButton(
               onPressed: onTap,
               icon: icon ??
-                  const Icon(
-                    Icons.notifications_none,
+                  Icon(
+                    Icons.notifications,
                     size: 21,
+                    color: AppColors.appColor,
                   ),
             ),
           ],

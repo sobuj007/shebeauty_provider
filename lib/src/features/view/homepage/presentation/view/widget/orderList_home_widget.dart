@@ -32,8 +32,7 @@ class OrderlistHomeWidget extends StatelessWidget {
               itemCount: controller.getOrderModel.length,
               itemBuilder: (_, index) {
                 var item = controller.getOrderModel[index];
-                print(
-                    "Order List ${item.orderProducts?.first.serviceProduct?.name}");
+
                 return SizedBox(
                   width: 230,
                   child: Card(
@@ -127,8 +126,10 @@ class OrderlistHomeWidget extends StatelessWidget {
                                   height: 36,
                                   child: CustomElevatedButton(
                                     onPress: () {
-                                      controller.orderDetailsFunction(id: item.id);
-                                      Get.toNamed(AppRoutes.orderDetailsPage);
+                                      // controller.orderDetailsFunction(id: item.id);
+                                      Get.toNamed(AppRoutes.orderDetailsPage, arguments: {
+                                        'serviceProduct': item,
+                                      },);
                                     },
                                     text: CustomText(
                                       text: "VIEW DETAILE",
