@@ -43,7 +43,11 @@ class ExpertWorkerScreen extends StatelessWidget {
                       InkWell(
                         onTap: () =>
                             controller.pickImageForCertificate(from: "profile"),
-                        child: SizedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(500),
+                            border: Border.all(color: AppColors.appColor)
+                          ),
                           height: 75,
                           width: 74,
                           child: (controller.profileImage.value.path.isNotEmpty)

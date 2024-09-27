@@ -55,6 +55,7 @@ dependencies:
   permission_handler: ^11.3.1
   intl:
   card_swiper:
+  group_button:
 
 dev_dependencies:
   flutter_test:

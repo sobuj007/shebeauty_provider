@@ -19,7 +19,7 @@ import '../../data/model/all_order_model.dart';
 import '../../data/model/get_all_product_model.dart';
 import '../../data/model/review_model.dart';
 import '../../domain/repository/get_all_product_repository.dart';
-import '../../domain/usecase/experts_create_pass_usecase.dart';
+import '../../domain/usecase/get_all_product_pass_usecase.dart';
 
 class HomepageController extends GetxController {
   var searchController = TextEditingController().obs;
@@ -69,10 +69,11 @@ class HomepageController extends GetxController {
   DropdownModel? selectedTimeSlot;
   var locationList = [].obs;
   RxList<String> selectedLocations = <String>[].obs;
-  var selectedAppointmentTimeSlot = ['0'].obs;
+  var selectedAppointmentTimeSlot = [].obs;
   Rx<File> pickedImage = File("").obs;
   final ImagePicker pickerSingle = ImagePicker();
   late StreamSubscription<bool> connectivitySubscription;
+  List selectedBodyValue = <String>[].obs();
   Future<void> pickImageForCertificate() async {
     print("this is image");
     if (await Permission.storage.request().isGranted) {
@@ -134,7 +135,12 @@ class HomepageController extends GetxController {
       }).toList();
     }
   }
-
+  List<String?> filterBodypartsByName(String id) {
+    return allBodyPartCategories
+        .where((bodypart) => bodypart.subcategoryId == id)
+        .map((bodypart) => bodypart.name)
+        .toList();
+  }
   void bodyPartFilterCategories(String s, Subcategory? subCategory) {
     // String query = bodyPartSearchController.value.text.toLowerCase();
 
@@ -266,16 +272,19 @@ class HomepageController extends GetxController {
 }
   void categoryChange(DropdownModel model) {
     selectedCategory = model;
+    print("category id ${model.id}");
     update();
   }
 
   void subCategoryChange(DropdownModel model) {
     selectedSubCategory = model;
+    print("sub category id ${model.id}");
     update();
   }
 
   void bodypartChange(DropdownModel model) {
     selectedBodyPart = model;
+    print("body part id ${model.id}");
     update();
   }
 
@@ -288,11 +297,12 @@ class HomepageController extends GetxController {
           .where((location) => location.citiesId == model.id.toString())
           .toList();
     }
+    print("city id ${model.id} ${locationList.value}");
     update();
   }
 
   void addLocation(item) {
-    print("this is id ${item.name}");
+    print("this is id ${item.id}");
     if (!selectedLocations.contains(item.id.toString())) {
       selectedLocations.add(item.id.toString());
     }
@@ -305,15 +315,17 @@ class HomepageController extends GetxController {
   }
 
   void addAppointmentSlot(item) {
-    print("this is id ${item.id}");
+    print("appointment ${item.id}");
     if (!selectedAppointmentTimeSlot.contains(item)) {
       selectedAppointmentTimeSlot.add(item.id.toString());
     }
+    update();
   }
 
   void removeAppointment(item) {
     print("this is remove id ${item.id}");
     selectedAppointmentTimeSlot.remove(item.id.toString());
+    update();
   }
 
   timeSlotFunction() async {
@@ -348,6 +360,8 @@ class HomepageController extends GetxController {
 
   void timeSlotChange(DropdownModel model) {
     selectedTimeSlot = model;
+
+    print("timeslot id ${model.id}");
     if (selectedTimeSlot?.id != 0) {
       print("this is timeslot id ${selectedTimeSlot?.id}");
       appointmentSlotFunction(id: selectedTimeSlot?.id.toString() ?? '');

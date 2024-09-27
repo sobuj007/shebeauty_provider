@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:group_button/group_button.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/core/utils/app_sizes.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../../core/di/app_component.dart';
 import '../../../../../../core/routes/AppRouts.dart';
+import '../../../../../../core/utils/appFonts.dart';
 import '../../../../../../core/utils/app_assets.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../widgets/common_appbar/common_appbar.dart';
@@ -20,7 +23,14 @@ class SubCategoryListPage extends StatelessWidget {
   SubCategoryListPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final category = Get.arguments['subCategory'] as Category?;
+    // final category = Get.arguments['subCategory'] == null ? [] as Category : Get.arguments['subCategory'] as Category?;
+    // final Category? category = Get.arguments['category'] as Category?;
+    Category? category;
+    try {
+      category = Get.arguments['category'] as Category?;
+    } catch (e) {
+      category = null; // Safely handle any casting issues
+    }
     var size1 = MediaQuery.of(context).size;
     final double itemHeight = (size1.height - kToolbarHeight - 10) / 6;
     final double itemWidth = size1.width / 4.1;
@@ -100,18 +110,19 @@ class SubCategoryListPage extends StatelessWidget {
                                 children: controller.filteredSubCategories
                                     .map((item) => GestureDetector(
                                         onTap: () {
-                                          controller.filteredBodyPartCategories.value =
-                                              controller.allBodyPartCategories
-                                                  .where((bodyPart) =>
-                                                      item.id.toString() ==
-                                                      bodyPart.subcategoryId)
-                                                  .toList();
-                                          Get.toNamed(
-                                            AppRoutes.bodyPart,
-                                            arguments: {
-                                              'subcategory': item,
-                                            },
-                                          );
+                                          // controller.filteredBodyPartCategories.value =
+                                          //     controller.allBodyPartCategories
+                                          //         .where((bodyPart) =>
+                                          //             item.id.toString() ==
+                                          //             bodyPart.subcategoryId)
+                                          //         .toList();
+                                           showpopup(context, item.id, controller);
+                                          // Get.toNamed(
+                                          //   AppRoutes.bodyPart,
+                                          //   arguments: {
+                                          //     'subcategory': item,
+                                          //   },
+                                          // );
                                         },
                                         child: Card(
                                           color: Colors.white,
@@ -205,5 +216,106 @@ class SubCategoryListPage extends StatelessWidget {
         );
       }
     );
+  }
+  showpopup(context, id, HomepageController homeController) {
+    showModalBottomSheet(
+        context: context,
+        builder: ((context) {
+          return Obx(() {
+            if (homeController.allSubCategories == null) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            if (homeController.allBodyPartCategories!.isEmpty) {
+              return Center(child: Text('No Body part available'));
+            }
+            final data = homeController.filterBodypartsByName(id.toString());
+            var listdata = data;
+            return Container(
+              // height: 15.h+(5.h*bodypart.length/2),
+              height: 30.h + (5.h),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: data.isEmpty ?  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('No Body part available'),
+
+                        IconButton(onPressed: (){
+                          Navigator.pop(context);
+                          Get.toNamed(AppRoutes.addServicesScreen);
+                        }, icon: Icon(Icons.add_circle_outlined, size: 40,))
+                      ],
+                    ))): Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "Body Part:",
+                      style: AppFonts.fontH4semi(AppColors.themeBlack),
+                    ),
+                    GroupButton(
+                      options: GroupButtonOptions(
+                          groupingType: GroupingType.wrap,
+                          spacing: 5,
+                          runSpacing: 5,
+                          borderRadius: BorderRadius.circular(5),
+                          textPadding: EdgeInsets.symmetric(
+                              horizontal: 1, vertical: .5),
+                          selectedColor: Colors.amberAccent,
+                          unselectedTextStyle:
+                          AppFonts.fontH7semi(Colors.black),
+                          selectedTextStyle: AppFonts.fontH7semi(Colors.black)),
+                      isRadio: false,
+                      onSelected: ((value, index, isSelected) {
+                        if (isSelected) {
+                          homeController.selectedBodyValue.add(index.toString());
+                        } else {
+                          homeController.selectedBodyValue.remove(index.toString());
+                        }
+// For debugging purposes
+                      }),
+                      buttons: data,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Get.toNamed(AppRoutes.addServicesScreen);
+                                  // Future.delayed(Duration.zero, () async {
+                                  //   Get.to(MyProvider2(), arguments: {
+                                  //     "subcategory": con.subcategories,
+                                  //     "bodypart": selectedBodyValue,
+                                  //     "subid": id
+                                  //   });
+                                  // });
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.appColor,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Search",
+                                      style: AppFonts.fontH4bold(
+                                          AppColors.white),
+                                    ),
+                                  ),
+                                ))),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        }));
   }
 }

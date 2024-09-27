@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ import 'package:shebeauty_provider/src/features/widgets/common_appbar/common_app
 import 'package:shebeauty_provider/src/features/widgets/custom_elevatedButton/custom_eleveted_button.dart';
 
 import '../../../../../core/model/dropdown_model.dart';
+import '../../../../../core/routes/AppRouts.dart';
 import '../../../../../core/source/dio_client.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../widgets/common_cached_network_image/common_cached_network_image.dart';
@@ -34,29 +37,30 @@ class ProfileSettingScreen extends StatelessWidget {
               init: HomepageController(),
               builder: (homeController) {
                 return Obx(() => Scaffold(
+                  backgroundColor: Colors.white,
                       appBar: const CommonCustomAppBar(appbarTitle: "Profile"),
                       body: Stack(
                         children: [
-                          Column(
-                            children: [
-                              Container(
-                                height: 127,
-                                width: MediaQuery.of(context).size.width,
-                                color: AppColors.containerColor,
-                              ),
-                            ],
-                          ),
+                          // Column(
+                          //   children: [
+                          //     Container(
+                          //       height: 127,
+                          //       width: MediaQuery.of(context).size.width,
+                          //       color: AppColors.containerColor,
+                          //     ),
+                          //   ],
+                          // ),
                           Positioned(
                             top: 10,
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.87,
+                              height: MediaQuery.of(context).size.height * 0.89,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   children: [
                                     Expanded(
-                                      flex: 2,
+                                      flex: 1,
                                       child: Column(
                                         children: [
                                           Padding(
@@ -120,7 +124,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          50.ph,
+                                          20.ph,
                                           Row(
                                             children: [
                                                SizedBox(
@@ -148,29 +152,29 @@ class ProfileSettingScreen extends StatelessWidget {
                                                             fontSize: 16,
                                                             letterSpacing: 0.25,
                                                           )),
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.only(
-                                                              right: 15),
-                                                          child: Container(
-                                                            height: 21,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        4),
-                                                                color:
-                                                                    AppColors.buttonColor),
-                                                            child: const Center(
-                                                                child: CustomText(
-                                                              text: "Gold",
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w500,
-                                                              textAlign: TextAlign.center,
-                                                              letterSpacing: 0.25,
-                                                            )),
-                                                          ),
-                                                        ),
-                                                      )
+                                                      // Expanded(
+                                                      //   child: Padding(
+                                                      //     padding: const EdgeInsets.only(
+                                                      //         right: 15),
+                                                      //     child: Container(
+                                                      //       height: 21,
+                                                      //       decoration: BoxDecoration(
+                                                      //           borderRadius:
+                                                      //               BorderRadius.circular(
+                                                      //                   4),
+                                                      //           color:
+                                                      //               AppColors.buttonColor),
+                                                      //       child: const Center(
+                                                      //           child: CustomText(
+                                                      //         text: "Gold",
+                                                      //         fontSize: 12,
+                                                      //         fontWeight: FontWeight.w500,
+                                                      //         textAlign: TextAlign.center,
+                                                      //         letterSpacing: 0.25,
+                                                      //       )),
+                                                      //     ),
+                                                      //   ),
+                                                      // )
                                                     ],
                                                   ),
                                                    CustomText(
@@ -189,7 +193,6 @@ class ProfileSettingScreen extends StatelessWidget {
                                               ))
                                             ],
                                           ),
-                                          20.ph,
                                         ],
                                       ),
                                     ),
@@ -200,11 +203,12 @@ class ProfileSettingScreen extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             CommonTextfieldWidget(
-                                              hintText: "Enter owner name",
+                                              hintText: "Enter store name",
                                               controller:
                                                   controller.ownerNameController.value,
-                                              labelText: "Owner Name",
+                                              labelText: "Store Name",
                                               keyboardType: TextInputType.text,
+                                              obscureText: false,
                                             ),
                                             15.ph,
                                             CommonTextfieldWidget(
@@ -213,6 +217,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                                   controller.mobileNumberController.value,
                                               labelText: "Mobile Number",
                                               keyboardType: TextInputType.phone,
+                                              obscureText: false,
                                             ),
                                             15.ph,
                                             // CommonTextfieldWidget(
@@ -229,6 +234,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                                   controller.tradeLicenseController.value,
                                               labelText: "Trade license",
                                               keyboardType: TextInputType.number,
+                                              obscureText: false,
 
                                             ),
                                             15.ph,
@@ -238,15 +244,17 @@ class ProfileSettingScreen extends StatelessWidget {
                                                   controller.addressController.value,
                                               labelText: "Address",
                                               keyboardType: TextInputType.text,
+                                              obscureText: false,
                                             ),
-                                            15.ph,
-                                            CommonTextfieldWidget(
-                                              hintText: "Enter company name",
-                                              controller:
-                                                  controller.companyNameController.value,
-                                              labelText: "Company Name",
-                                              keyboardType: TextInputType.text,
-                                            ),
+                                            // 15.ph,
+                                            // CommonTextfieldWidget(
+                                            //   hintText: "Enter company name",
+                                            //   controller:
+                                            //       controller.companyNameController.value,
+                                            //   labelText: "Company Name",
+                                            //   keyboardType: TextInputType.text,
+                                            //   obscureText: false,
+                                            // ),
                                             // if(expertsController.images.isNotEmpty)
                                             // 10.ph,
                                             // if(expertsController.images.isNotEmpty)
@@ -345,15 +353,17 @@ class ProfileSettingScreen extends StatelessWidget {
                                               children: [
                                                 Expanded(
                                                   child: CustomElevatedButton(
-                                                    color: AppColors.buttonColor,
-                                                    borderRadiusValue: 15,
-                                                    onPress: () {},
-                                                    text: const CustomText(
-                                                      text: "Edit Bio",
+                                                    color: Colors.black12,
+                                                    borderRadiusValue: 5,
+                                                    onPress: () {
+                                                      controller.addStoreProfile(context);
+                                                    },
+                                                    text:  CustomText(
+                                                      text: "Upload BIO",
                                                       fontWeight: FontWeight.w400,
                                                       fontSize: 13,
                                                       letterSpacing: 0.25,
-                                                      textColor: Colors.black,
+                                                      textColor: AppColors.appColor,
                                                     ),
                                                   ),
                                                 ),
@@ -363,7 +373,9 @@ class ProfileSettingScreen extends StatelessWidget {
                                                     color: AppColors.buttonColor,
                                                     borderRadiusValue: 15,
                                                     onPress: () {
-                                                      controller.addStoreProfile(context);
+                                                      Get.toNamed(
+                                                        AppRoutes.signupScreenSetInformation);
+                                                      // signupScreenSetInformation
                                                     },
                                                     text: controller.isDataSubmited.value == true ? const Center(
                                                       child: CircularProgressIndicator(),

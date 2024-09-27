@@ -9,7 +9,7 @@ import '../../../../../core/source/model/api_response.dart';
 import '../../data/model/all_order_model.dart';
 import '../../data/model/get_all_product_model.dart';
 import '../../data/model/review_model.dart';
-import 'experts_create_usecase.dart';
+import 'get_all_product_usecase.dart';
 
 class GetAllProductPassUseCase extends GetAllProductUseCase {
   GetAllProductPassUseCase(super.getAllProductRepository);

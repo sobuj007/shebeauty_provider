@@ -78,9 +78,9 @@ var homeController = locator<HomepageController>();
               25.ph,
               CustomRow(icon: Icons.settings, menuName: "My Services", onPress: (){Get.toNamed(AppRoutes.servicesScreen);}),
               25.ph,
-              CustomRowImage(
-                  image: AppAssets.location, menuName: "My Time Slots", onPress: (){Get.toNamed(AppRoutes.mySlotsScreen);}),
-              25.ph,
+              // CustomRowImage(
+              //     image: AppAssets.location, menuName: "My Time Slots", onPress: (){Get.toNamed(AppRoutes.mySlotsScreen);}),
+              // 25.ph,
               CustomRowImage(
                   image: AppAssets.location, menuName: "Service Location", onPress: (){ serviceLocationController.saveAndNavigateIfNeeded();}),
               25.ph,

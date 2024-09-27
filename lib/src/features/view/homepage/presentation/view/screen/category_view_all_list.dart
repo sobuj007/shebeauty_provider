@@ -85,7 +85,7 @@ class CategoryViewAllList extends StatelessWidget {
                                 Get.toNamed(
                                   AppRoutes.subCategoryList,
                                   arguments: {
-                                    'subCategory': item,
+                                    'category': item,
                                   },
                                 );
                               },

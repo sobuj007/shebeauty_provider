@@ -20,7 +20,14 @@ class BodypartListPage extends StatelessWidget {
   var controller = locator<HomepageController>();
   @override
   Widget build(BuildContext context) {
-    final subCategory = Get.arguments['subcategory'] as Subcategory?;
+    // final Subcategory? subCategory = Get.arguments['subcategory'] as Subcategory?;
+    Subcategory? subCategory;
+    try {
+      subCategory = Get.arguments['subcategory'] as Subcategory?;
+    } catch (e) {
+      subCategory = null; // Safely handle any casting issues
+    }
+
     var size1 = MediaQuery.of(context).size;
     final double itemHeight = (size1.height - kToolbarHeight - 10) / 6;
     final double itemWidth = size1.width / 4.1;

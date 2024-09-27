@@ -24,34 +24,36 @@ class ExpertsList extends StatelessWidget {
             itemBuilder: (_, index) {
               var item = controller.expertsListModel.value.data?[index];
               return Card(
-                elevation: 0,
-                color: AppColors.buttonColor,
+                elevation: 1,
+                color: AppColors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius:
-                  BorderRadius.circular(3),
+                  BorderRadius.circular(10),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Container(
-                        height: 91,
-                        width: 68,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(
-                                10),
-                            color: HexColor("958D8D")),
-                        child: CommonCachedNetworkImage(
+                      // Container(
+                      //   height: 91,
+                      //   width: 68,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius:
+                      //       BorderRadius.circular(
+                      //           10),
+                      //       color: HexColor("958D8D")),
+                      //   child:
+                        CommonCachedNetworkImage(
                             borderRadius: 5,
                             imageUrl: item?.profileImage ?? ''),
-                      ),
+                      // ),
                       10.pw,
                       Expanded(
                         flex: 2,
                         child: Column(
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomText(
                               text: item?.name ?? '',
@@ -60,7 +62,7 @@ class ExpertsList extends StatelessWidget {
                               FontWeight.w500,
                               letterSpacing: 0.25,
                             ),
-                            10.ph,
+                            2.ph,
                             CustomText(
                               text: item?.mobile ?? '',
                               fontSize: 12,
@@ -68,7 +70,7 @@ class ExpertsList extends StatelessWidget {
                               FontWeight.w500,
                               letterSpacing: 0.25,
                             ),
-                            10.ph,
+                            2.ph,
                             CustomText(
                               text: "Experience Year: ${item?.expartyear ?? ''} years",
                               fontSize: 12,
@@ -76,18 +78,28 @@ class ExpertsList extends StatelessWidget {
                               FontWeight.w500,
                               letterSpacing: 0.25,
                             ),
-                            Obx(()=> Row(
+                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Row(
                                   children: [
-                                    SizedBox(
-                                      height: 13,
-                                      width: 13,
-                                      child: Radio(
-                                          value: 1, groupValue: controller.gender.value, onChanged: (value){
-                                        controller.gender.value = value!;
-                                      }),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        border: Border.all(color: item?.gender == "male" ||  item?.gender == "Male" ?  AppColors.appColor : AppColors.grey, width: 2)
+                                      ),
+                                      height: 20,
+                                      width: 20,
+                                      child: Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(100),
+                                            color: item?.gender == "male" ||  item?.gender == "Male" ?  AppColors.appColor : AppColors.grey,
+                                          ),
+                                          height: 13,
+                                          width: 13,
+                                        ),
+                                      ),
                                     ),
                                     Icon(Icons.boy, size: 23,)
                                   ],
@@ -95,18 +107,29 @@ class ExpertsList extends StatelessWidget {
                                 10.pw,
                                 Row(
                                   children: [
-                                    SizedBox(
-                                      height: 13,
-                                      width: 13,
-                                      child: Radio(value: 2, groupValue: controller.gender.value, onChanged: (value){
-                                        controller.gender.value = value!;
-                                      }),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: item?.gender == "female" ||  item?.gender == "Female"?  AppColors.appColor : AppColors.grey, width: 2)
+                                      ),
+                                      height: 20,
+                                      width: 20,
+                                      child: Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(100),
+                                            color: item?.gender == "female" ||  item?.gender == "Female" ?  AppColors.appColor : AppColors.grey,
+                                          ),
+                                          height: 13,
+                                          width: 13,
+                                        ),
+                                      ),
                                     ),
                                     Icon(Icons.girl, size: 23,)
                                   ],
                                 ),
                               ],
-                            ))
+                            )
                           ],
                         ),
                       ),

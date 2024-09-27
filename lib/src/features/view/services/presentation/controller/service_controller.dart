@@ -10,7 +10,7 @@ import '../../../../widgets/custom_toast/custom_toast.dart';
 import '../../../homepage/data/model/appointment_slot_model.dart';
 import '../../../homepage/data/model/time_slot_model.dart';
 import '../../../homepage/domain/repository/get_all_product_repository.dart';
-import '../../../homepage/domain/usecase/experts_create_pass_usecase.dart';
+import '../../../homepage/domain/usecase/get_all_product_pass_usecase.dart';
 import '../../domain/repository/service_repository.dart';
 import '../../domain/usecase/service_pass_usecase.dart';
 
@@ -99,6 +99,7 @@ class ServiceController extends GetxController {
   }
 
   addService(BuildContext context) async {
+    print("is clicked");
     if(nameController.value.text.isEmpty){
       errorToast(context: context, msg: "Please enter name");
     }else if(homeController.selectedCategory?.id == 0){
@@ -123,8 +124,9 @@ class ServiceController extends GetxController {
       errorToast(context: context, msg: "Please select gender");
     }
     else{
-     try{
-       isDataSubmited.value = true;
+     // try{
+       print("is clicked11");
+       // isDataSubmited.value = true;
        ServicePassUseCase servicePassUseCase =
        ServicePassUseCase(locator<ServiceRepository>());
        var formData =     {
@@ -149,11 +151,12 @@ class ServiceController extends GetxController {
        } else {
          print("this is value");
        }
-     }catch(e){
-       isDataSubmited.value = false;
-     }finally{
-       isDataSubmited.value = false;
-     }
+     // }catch(e){
+     //   print(e);
+     //   isDataSubmited.value = false;
+     // }finally{
+     //   isDataSubmited.value = false;
+     // }
     }
   }
 
@@ -163,6 +166,7 @@ clearData(){
     servicesPriceController.value.clear();
     withProductPriceController.value.clear();
     genderForAddServices.value = '';
+    homeController.selectedTimeSlot = null;
     homeController.selectedCategory = null;
     homeController.selectedSubCategory = null;
     homeController.selectedBodyPart = null;

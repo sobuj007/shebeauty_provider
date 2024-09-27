@@ -5,6 +5,7 @@ class AppColors {
   static final Color buttonColor = HexColor('#D9D9D9');
   static final Color appColor = HexColor('#6200EE');
   static final Color grey = Colors.grey;
+  static final Color white = Colors.white;
   static const themeBlack=Colors.black87;
   static final Color containerColor = HexColor("FFEDED");
   static final Color deepGrey = HexColor("D9D9D9");

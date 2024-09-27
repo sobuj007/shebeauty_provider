@@ -18,8 +18,8 @@ class CommonCachedNetworkImage extends StatelessWidget {
         errorWidget:
             (context, url, error) =>
         const Icon(
-          Icons.hourglass_empty,
-          size: 80,
+          Icons.person,
+          size: 70,
         ),
       ),
     );

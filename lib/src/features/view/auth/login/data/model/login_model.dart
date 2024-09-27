@@ -70,12 +70,12 @@ class User {
   int? id;
   String? name;
   String? email;
-  Null? emailVerifiedAt;
+  var emailVerifiedAt;
   String? subscription;
   String? role;
   String? isBlocked;
-  Null? createdAt;
-  Null? updatedAt;
+  var createdAt;
+  var updatedAt;
 
   User(
       {this.id,

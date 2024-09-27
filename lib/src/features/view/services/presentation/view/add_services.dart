@@ -43,10 +43,11 @@ class AddServicesScreen extends StatelessWidget {
                             children: [
                               10.ph,
                               CommonTextfieldWidget(
-                                hintText: "Honey Wax",
+                                hintText: "Enter Name",
                                 controller: controller.nameController.value,
                                 labelText: "Name",
                                 keyboardType: TextInputType.text,
+                                obscureText: false,
                               ),
                               15.ph,
                               CustomDropDown(
@@ -99,7 +100,7 @@ class AddServicesScreen extends StatelessWidget {
                                     homeController.cityList.first,
                               ),
                               Visibility(
-                                  visible: homeController.selectedCity?.id == 0
+                                  visible: homeController.selectedCity == null
                                       ? false
                                       : true,
                                   child: ListView.builder(
@@ -151,7 +152,7 @@ class AddServicesScreen extends StatelessWidget {
                              homeController.isLoadingAppointmentSlot.value == true ? const Center(
                                child: CircularProgressIndicator(),
                              ) :  Visibility(
-                                  visible: homeController.selectedTimeSlot?.id == 0
+                                  visible: homeController.selectedTimeSlot?.id == null
                                       ? false
                                       : true,
                                   child: ListView.builder(
@@ -167,7 +168,7 @@ class AddServicesScreen extends StatelessWidget {
                                             Obx(() => Checkbox(
                                               value: homeController
                                                   .selectedAppointmentTimeSlot
-                                                  .contains(item?.id),
+                                                  .contains(item?.id.toString()),
                                               onChanged: (bool? isChecked) {
                                                 if (isChecked == true) {
                                                   homeController
@@ -192,6 +193,7 @@ class AddServicesScreen extends StatelessWidget {
                                           .servicesPriceController.value,
                                       labelText: "Services Price",
                                       keyboardType: TextInputType.text,
+                                      obscureText: false,
                                     ),
                                   ),
                                   15.pw,
@@ -202,6 +204,7 @@ class AddServicesScreen extends StatelessWidget {
                                           .withProductPriceController.value,
                                       labelText: "With Product Price",
                                       keyboardType: TextInputType.text,
+                                      obscureText: false,
                                     ),
                                   )
                                 ],
@@ -215,7 +218,7 @@ class AddServicesScreen extends StatelessWidget {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,
-                                  fontSize: 10,
+                                  fontSize: 18,
                                   fontFamily: "Roboto",
                                 ),
                                 decoration: InputDecoration(
@@ -246,38 +249,38 @@ class AddServicesScreen extends StatelessWidget {
                                 ),
                               ),
                               15.ph,
-                              const CustomText(
-                                text: "Add Category Image",
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: 0.15,
-                              ),
-                              5.ph,
-                              InkWell(
-                                onTap: () =>
-                                    homeController.pickImageForCertificate(),
-                                child: SizedBox(
-                                  height: 75,
-                                  width: 90,
-                                  child: (homeController.pickedImage.value.path.isNotEmpty)
-                                      ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.file(
-                                      File(homeController.pickedImage.value.path),
-                                      height: 75,
-                                      width: 74,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
-                                      : const Center(
-                                    child: Icon(
-                                      Icons.add_photo_alternate,
-                                      size: 22,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              15.ph,
+                              // const CustomText(
+                              //   text: "Add Category Image",
+                              //   fontSize: 13,
+                              //   fontWeight: FontWeight.w400,
+                              //   letterSpacing: 0.15,
+                              // ),
+                              // 5.ph,
+                              // InkWell(
+                              //   onTap: () =>
+                              //       homeController.pickImageForCertificate(),
+                              //   child: SizedBox(
+                              //     height: 75,
+                              //     width: 90,
+                              //     child: (homeController.pickedImage.value.path.isNotEmpty)
+                              //         ? ClipRRect(
+                              //       borderRadius: BorderRadius.circular(5),
+                              //       child: Image.file(
+                              //         File(homeController.pickedImage.value.path),
+                              //         height: 75,
+                              //         width: 74,
+                              //         fit: BoxFit.fill,
+                              //       ),
+                              //     )
+                              //         : const Center(
+                              //       child: Icon(
+                              //         Icons.add_photo_alternate,
+                              //         size: 22,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // 15.ph,
                               Obx(()=> Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -315,44 +318,46 @@ class AddServicesScreen extends StatelessWidget {
                                   )
                                 ],
                               )),
-                              15.ph,
-                              const CustomText(
-                                text: "Product Brand:",
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.15,
-                              ),
-                              5.ph,
-                              SizedBox(
-                                height: 65,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 5,
-                                  itemBuilder: (_, index) {
-                                    return Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: AppColors.buttonColor
-                                            .withOpacity(0.5),
-                                        border: Border.all(
-                                            color: AppColors.buttonColor,
-                                            width: 1),
-                                      ),
-                                      width: 100,
-                                      height: 60,
-                                      child: const Center(
-                                        child: Icon(Icons.add_photo_alternate,
-                                            size: 22),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
+                              // 15.ph,
+                              // const CustomText(
+                              //   text: "Product Brand:",
+                              //   fontSize: 16,
+                              //   fontWeight: FontWeight.w500,
+                              //   letterSpacing: 0.15,
+                              // ),
+                              // 5.ph,
+                              // SizedBox(
+                              //   height: 65,
+                              //   child: ListView.builder(
+                              //     scrollDirection: Axis.horizontal,
+                              //     itemCount: 5,
+                              //     itemBuilder: (_, index) {
+                              //       return Container(
+                              //         margin: const EdgeInsets.only(right: 10),
+                              //         decoration: BoxDecoration(
+                              //           borderRadius: BorderRadius.circular(4),
+                              //           color: AppColors.buttonColor
+                              //               .withOpacity(0.5),
+                              //           border: Border.all(
+                              //               color: AppColors.buttonColor,
+                              //               width: 1),
+                              //         ),
+                              //         width: 100,
+                              //         height: 60,
+                              //         child: const Center(
+                              //           child: Icon(Icons.add_photo_alternate,
+                              //               size: 22),
+                              //         ),
+                              //       );
+                              //     },
+                              //   ),
+                              // ),
                               15.ph,
                               CustomElevatedButton(
+                                color: AppColors.deepPurple,
                                 onPress: () {
-                                  Get.offAllNamed(AppRoutes.parentScreen);
+                                  // Get.offAllNamed(AppRoutes.parentScreen);
+                                  controller.addService(context);
                                 },
                                 text: controller.isDataSubmited.value == true ? const Center(
                                   child: CircularProgressIndicator(),
@@ -360,7 +365,7 @@ class AddServicesScreen extends StatelessWidget {
                                   text: "Submit",
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
-                                  textColor: Colors.black,
+                                  textColor: Colors.white,
                                 ),
                               ),
                               8.ph,

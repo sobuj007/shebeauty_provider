@@ -6,7 +6,7 @@ class CommonTextfieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String labelText, hintText;
   final InkWell? icon;
-  final bool? obscureText;
+  final bool? obscureText, readOnly;
   final TextInputType? keyboardType;
   const CommonTextfieldWidget(
       {super.key,
@@ -15,7 +15,7 @@ class CommonTextfieldWidget extends StatelessWidget {
       required this.hintText,
       this.icon,
       this.obscureText,
-      this.keyboardType});
+      this.keyboardType, this.readOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class CommonTextfieldWidget extends StatelessWidget {
         obscureText: obscureText ?? true,
         controller: controller,
         keyboardType: keyboardType ?? TextInputType.text,
+        readOnly: readOnly ?? false,
         decoration: InputDecoration(
             hintText: hintText ?? '',
             border: InputBorder.none,
@@ -33,20 +34,26 @@ class CommonTextfieldWidget extends StatelessWidget {
             labelStyle: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: AppColors.grey,
+              color: AppColors.grey2,
+              fontFamily: "Roboto",
+            ),
+            hintStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: AppColors.grey2,
               fontFamily: "Roboto",
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: AppColors.grey,
+                color: AppColors.appColor.withOpacity(0.4),
                 width: 1.0,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
-                color: AppColors.grey,
+                color: AppColors.appColor.withOpacity(0.4),
                 width: 1.0,
               ),
             ),
