@@ -31,7 +31,7 @@ class HomepageScreen extends StatelessWidget {
       body: GetBuilder(
           init: LoginController(),
           builder: (loginController) {
-            return Obx(() => Padding(
+            return  Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -120,7 +120,7 @@ class HomepageScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ));
+                );
           }),
     );
   }

@@ -62,6 +62,7 @@ class CommonSearchTextfieldWidget extends StatelessWidget {
   final Icon? icon;
   final bool? obscureText;
   final TextInputType? keyboardType;
+  final Function(String)? onChanged;
   const CommonSearchTextfieldWidget(
       {super.key,
       required this.controller,
@@ -69,7 +70,9 @@ class CommonSearchTextfieldWidget extends StatelessWidget {
       this.hintText,
       this.icon,
       this.obscureText,
-      this.keyboardType});
+      this.keyboardType,
+      this.onChanged,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +106,7 @@ class CommonSearchTextfieldWidget extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             prefixIcon: icon),
+        onChanged: onChanged,
       ),
     );
   }

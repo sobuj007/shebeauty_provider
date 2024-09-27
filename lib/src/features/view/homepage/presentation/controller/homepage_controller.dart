@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -49,10 +50,8 @@ class HomepageController extends GetxController {
   var getOrderModel = <AllOrdersModel>[].obs;
   var orderDetailsModel = OrderDetailsModel().obs;
   var timeSlotModel = TimeSlotModel().obs;
-  var allCategories =
-      <Category>[].obs;
-  var allSubCategories =
-      <Subcategory>[].obs;
+  var allCategories = <Category>[].obs;
+  var allSubCategories = <Subcategory>[].obs;
   var allBodyPartCategories =
       <Bodypart>[].obs; // This should be your full list of categories
   var filteredCategories = <Category>[].obs;
@@ -73,45 +72,15 @@ class HomepageController extends GetxController {
   var selectedAppointmentTimeSlot = ['0'].obs;
   Rx<File> pickedImage = File("").obs;
   final ImagePicker pickerSingle = ImagePicker();
-  HomepageController() {
-    // Initialize with all categories from getAllProductModel
-    allCategories.value = getAllProductModel.value.category ?? [];
-    if(clickedSubCategory.value == true){
-      filteredSubCategories.value =
-      List<Subcategory>.from(allSubCategories);
-    }else if(clickedBodyPart.value == true){
-      filteredBodyPartCategories.value =
-      List<Bodypart>.from(allBodyPartCategories);
-    }else{
-      filteredCategories.value =
-      List<Category>.from(allCategories);
-    }
-
-
-
-
-    // Add listener to searchController to filter categories as the user types
-    searchController.value.addListener(() {
-      filterCategories();
-    });
-    if(clickedSubCategory.value == true){
-      subCategorySearchController.value.addListener(() {
-        subCategoryFilterCategories();
-      });
-    }
-
-    bodyPartSearchController.value.addListener(() {
-      bodyPartFilterCategories();
-    });
-  }
+  late StreamSubscription<bool> connectivitySubscription;
   Future<void> pickImageForCertificate() async {
     print("this is image");
     if (await Permission.storage.request().isGranted) {
       print("this is image");
       XFile? xFile = await pickerSingle.pickImage(source: ImageSource.gallery);
       if (xFile != null) {
-          pickedImage.value = File(xFile.path);
-          print(pickedImage.value);
+        pickedImage.value = File(xFile.path);
+        print(pickedImage.value);
         update();
       }
     } else if (await Permission.storage.request().isPermanentlyDenied) {
@@ -121,6 +90,7 @@ class HomepageController extends GetxController {
     }
     update();
   }
+
   void filterCategories() {
     String query = searchController.value.text.toLowerCase();
 
@@ -134,39 +104,61 @@ class HomepageController extends GetxController {
             .toLowerCase()
             .contains(query); // Assuming `name` is the field to search
       }).toList();
-
     }
   }
-  void subCategoryFilterCategories() {
-    String query = subCategorySearchController.value.text.toLowerCase();
 
-    if (query.isEmpty) {
+  void subCategoryFilterCategories(String s, Category? category) {
+    // String query = subCategorySearchController.value.text.toLowerCase();
+
+    if (s.isEmpty) {
       // Show all categories if the search query is empty
-      filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
-
+      filteredSubCategories.value =
+          allSubCategories
+              .where((subCategory) =>
+          category?.id.toString() ==
+              subCategory.categoryId)
+              .toList();
     } else {
       // Filter categories based on the search query
 
       filteredSubCategories.value = allSubCategories.where((subCategory) {
-        return subCategory.name!
-            .toLowerCase()
-            .contains(query); // Assuming `name` is the field to search
+        // Check if the subCategory's categoryId matches the given category's id
+        bool isCategoryMatch = category?.id.toString() == subCategory.categoryId;
+
+        // Check if the subCategory's name contains the search string `s` (case-insensitive)
+        bool isNameMatch =
+        subCategory.name!.toLowerCase().contains(s.toLowerCase());
+
+        // Return true only if both conditions are met
+        return isCategoryMatch && isNameMatch;
       }).toList();
     }
   }
-  void bodyPartFilterCategories() {
-    String query = bodyPartSearchController.value.text.toLowerCase();
 
-    if (query.isEmpty) {
+  void bodyPartFilterCategories(String s, Subcategory? subCategory) {
+    // String query = bodyPartSearchController.value.text.toLowerCase();
+
+    if (s.isEmpty) {
       // Show all categories if the search query is empty
-      filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
-
+      filteredBodyPartCategories.value =
+          allBodyPartCategories
+              .where((bodyPart) =>
+          subCategory?.id.toString() ==
+              bodyPart.subcategoryId)
+              .toList();
     } else {
       // Filter categories based on the search query
-      filteredBodyPartCategories.value = allBodyPartCategories.where((bodyPart) {
-        return bodyPart.name!
-            .toLowerCase()
-            .contains(query); // Assuming `name` is the field to search
+
+      filteredBodyPartCategories.value = allBodyPartCategories.where((bodypart) {
+        // Check if the subCategory's categoryId matches the given category's id
+        bool isCategoryMatch = subCategory?.id.toString() == bodypart.subcategoryId;
+
+        // Check if the subCategory's name contains the search string `s` (case-insensitive)
+        bool isNameMatch =
+        bodypart.name!.toLowerCase().contains(s.toLowerCase());
+
+        // Return true only if both conditions are met
+        return isCategoryMatch && isNameMatch;
       }).toList();
     }
   }
@@ -191,7 +183,8 @@ class HomepageController extends GetxController {
     reviewFunction();
     filteredCategories.value = List<Category>.from(allCategories);
     filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
-    filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
+    filteredBodyPartCategories.value =
+        List<Bodypart>.from(allBodyPartCategories);
     super.onInit();
   }
 
@@ -218,7 +211,8 @@ class HomepageController extends GetxController {
         allBodyPartCategories.value = getAllProductModel.value.bodypart ?? [];
         filteredCategories.value = List<Category>.from(allCategories);
         filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
-        filteredBodyPartCategories.value = List<Bodypart>.from(allBodyPartCategories);
+        filteredBodyPartCategories.value =
+            List<Bodypart>.from(allBodyPartCategories);
 
         for (var item in getAllProductModel.value.category ?? []) {
           print("this is hot data ${item.name}");
@@ -260,7 +254,16 @@ class HomepageController extends GetxController {
     }
     update();
   }
-
+  subCategoryListFunc(Category item){
+  filteredSubCategories.value =
+      allSubCategories
+          .where((subCategory) =>
+      item.id.toString() ==
+          subCategory.categoryId)
+          .toList();
+  clickedSubCategory.value = true;
+  update();
+}
   void categoryChange(DropdownModel model) {
     selectedCategory = model;
     update();
@@ -278,15 +281,16 @@ class HomepageController extends GetxController {
 
   void cityChange(DropdownModel model) {
     selectedCity = model;
-    
-   if (model.id != 0) {
+
+    if (model.id != 0) {
       // Filter locations based on the selected city's ID
-      locationList.value = getAllProductModel.value.location
-          !.where((location) => location.citiesId == model.id.toString())
+      locationList.value = getAllProductModel.value.location!
+          .where((location) => location.citiesId == model.id.toString())
           .toList();
     }
     update();
   }
+
   void addLocation(item) {
     print("this is id ${item.name}");
     if (!selectedLocations.contains(item.id.toString())) {
@@ -300,8 +304,8 @@ class HomepageController extends GetxController {
     update();
   }
 
-void addAppointmentSlot(item) {
-  print("this is id ${item.id}");
+  void addAppointmentSlot(item) {
+    print("this is id ${item.id}");
     if (!selectedAppointmentTimeSlot.contains(item)) {
       selectedAppointmentTimeSlot.add(item.id.toString());
     }
@@ -312,8 +316,7 @@ void addAppointmentSlot(item) {
     selectedAppointmentTimeSlot.remove(item.id.toString());
   }
 
-
- timeSlotFunction() async {
+  timeSlotFunction() async {
     try {
       isLoadingTimeSlot.value = true;
       TimeSlotPassUseCase timeSlotPassUseCase =
@@ -345,7 +348,7 @@ void addAppointmentSlot(item) {
 
   void timeSlotChange(DropdownModel model) {
     selectedTimeSlot = model;
-    if(selectedTimeSlot?.id != 0){
+    if (selectedTimeSlot?.id != 0) {
       print("this is timeslot id ${selectedTimeSlot?.id}");
       appointmentSlotFunction(id: selectedTimeSlot?.id.toString() ?? '');
     }
@@ -384,7 +387,7 @@ void addAppointmentSlot(item) {
       print(response?.data);
       if (response?.data != null) {
         promotionBannerModel.value = response?.data ?? PromotionBannerModel();
-        for(var prom in promotionBannerModel.value.data ?? []){
+        for (var prom in promotionBannerModel.value.data ?? []) {
           print("promotion banner model ${prom.image} ${prom.description}");
         }
       } else {
@@ -407,8 +410,7 @@ void addAppointmentSlot(item) {
       print(response?.data);
       if (response?.data != null) {
         reviewModel.value = response?.data ?? ReviewModel();
-        print(
-            "review Model ${reviewModel.value.reviews?.first.comment}");
+        print("review Model ${reviewModel.value.reviews?.first.comment}");
       } else {
         print("this is value");
       }
@@ -450,7 +452,8 @@ void addAppointmentSlot(item) {
       print(response?.data);
       if (response?.data != null) {
         appointmentSlotModel.value = response?.data ?? AppointmentSlotModel();
-        print("experts List model ${appointmentSlotModel.value.data?.first.time}");
+        print(
+            "experts List model ${appointmentSlotModel.value.data?.first.time}");
       } else {
         appointmentSlotModel.value.data?.clear();
         print("this is error portion");
@@ -467,20 +470,20 @@ void addAppointmentSlot(item) {
   getOrdersFuction() async {
     print("this is Order List");
     // try {
-      // isLoadingOrderList.value = true;
-      GetOrdersPassUseCase getOrdersPassUseCase =
-          GetOrdersPassUseCase(locator<GetAllProductRepository>());
-      var response = await getOrdersPassUseCase();
-      print(response?.data);
-      if (response?.data != null) {
-        List<AllOrdersModel> dataList = response?.data as List<AllOrdersModel>;
-        getOrderModel.clear();
-        getOrderModel.addAll(dataList);
-        print("this is Order List");
-      } else {
-        print("this is value");
-      }
-      isLoadingOrderList.value = false;
+    // isLoadingOrderList.value = true;
+    GetOrdersPassUseCase getOrdersPassUseCase =
+        GetOrdersPassUseCase(locator<GetAllProductRepository>());
+    var response = await getOrdersPassUseCase();
+    print(response?.data);
+    if (response?.data != null) {
+      List<AllOrdersModel> dataList = response?.data as List<AllOrdersModel>;
+      getOrderModel.clear();
+      getOrderModel.addAll(dataList);
+      print("this is Order List");
+    } else {
+      print("this is value");
+    }
+    isLoadingOrderList.value = false;
     // } catch (e) {
     //   print(e.toString());
     // } finally {

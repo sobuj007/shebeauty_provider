@@ -104,7 +104,7 @@ class AddServicesScreen extends StatelessWidget {
                                       : true,
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       itemCount:
                                           homeController.locationList.length,
                                       itemBuilder: (_, index) {
@@ -156,7 +156,7 @@ class AddServicesScreen extends StatelessWidget {
                                       : true,
                                   child: ListView.builder(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       itemCount:
                                       homeController.appointmentSlotModel.value.data?.length,
                                       itemBuilder: (_, index) {
@@ -252,31 +252,31 @@ class AddServicesScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 letterSpacing: 0.15,
                               ),
-                              // 5.ph,
-                              // InkWell(
-                              //   onTap: () =>
-                              //       homeController.pickImageForCertificate(),
-                              //   child: SizedBox(
-                              //     height: 75,
-                              //     width: 90,
-                              //     child: (homeController.pickedImage.value.path.isNotEmpty)
-                              //         ? ClipRRect(
-                              //       borderRadius: BorderRadius.circular(5),
-                              //       child: Image.file(
-                              //         File(homeController.pickedImage.value.path),
-                              //         height: 75,
-                              //         width: 74,
-                              //         fit: BoxFit.fill,
-                              //       ),
-                              //     )
-                              //         : const Center(
-                              //       child: Icon(
-                              //         Icons.add_photo_alternate,
-                              //         size: 22,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
+                              5.ph,
+                              InkWell(
+                                onTap: () =>
+                                    homeController.pickImageForCertificate(),
+                                child: SizedBox(
+                                  height: 75,
+                                  width: 90,
+                                  child: (homeController.pickedImage.value.path.isNotEmpty)
+                                      ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.file(
+                                      File(homeController.pickedImage.value.path),
+                                      height: 75,
+                                      width: 74,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                      : const Center(
+                                    child: Icon(
+                                      Icons.add_photo_alternate,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               15.ph,
                               Obx(()=> Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -295,7 +295,7 @@ class AddServicesScreen extends StatelessWidget {
                                               controller.genderForAddServices.value = value!;
                                             }),
                                           ),
-                                          Icon(Icons.boy, size: 23,),
+                                          const Icon(Icons.boy, size: 23,),
                                         ],
                                       ),
                                       30.pw,
@@ -308,55 +308,55 @@ class AddServicesScreen extends StatelessWidget {
                                               controller.genderForAddServices.value = value!;
                                             }),
                                           ),
-                                          Icon(Icons.girl, size: 23,)
+                                          const Icon(Icons.girl, size: 23,)
                                         ],
                                       ),
                                     ],
                                   )
                                 ],
                               )),
-                              // 15.ph,
-                              // const CustomText(
-                              //   text: "Product Brand:",
-                              //   fontSize: 16,
-                              //   fontWeight: FontWeight.w500,
-                              //   letterSpacing: 0.15,
-                              // ),
-                              // 5.ph,
-                              // SizedBox(
-                              //   height: 65,
-                              //   child: ListView.builder(
-                              //     scrollDirection: Axis.horizontal,
-                              //     itemCount: 5,
-                              //     itemBuilder: (_, index) {
-                              //       return Container(
-                              //         margin: const EdgeInsets.only(right: 10),
-                              //         decoration: BoxDecoration(
-                              //           borderRadius: BorderRadius.circular(4),
-                              //           color: AppColors.buttonColor
-                              //               .withOpacity(0.5),
-                              //           border: Border.all(
-                              //               color: AppColors.buttonColor,
-                              //               width: 1),
-                              //         ),
-                              //         width: 100,
-                              //         height: 60,
-                              //         child: const Center(
-                              //           child: Icon(Icons.add_photo_alternate,
-                              //               size: 22),
-                              //         ),
-                              //       );
-                              //     },
-                              //   ),
-                              // ),
+                              15.ph,
+                              const CustomText(
+                                text: "Product Brand:",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.15,
+                              ),
+                              5.ph,
+                              SizedBox(
+                                height: 65,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemBuilder: (_, index) {
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: AppColors.buttonColor
+                                            .withOpacity(0.5),
+                                        border: Border.all(
+                                            color: AppColors.buttonColor,
+                                            width: 1),
+                                      ),
+                                      width: 100,
+                                      height: 60,
+                                      child: const Center(
+                                        child: Icon(Icons.add_photo_alternate,
+                                            size: 22),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                               15.ph,
                               CustomElevatedButton(
                                 onPress: () {
                                   Get.offAllNamed(AppRoutes.parentScreen);
                                 },
-                                text: controller.isDataSubmited.value == true ? Center(
+                                text: controller.isDataSubmited.value == true ? const Center(
                                   child: CircularProgressIndicator(),
-                                ) : CustomText(
+                                ) : const CustomText(
                                   text: "Submit",
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,

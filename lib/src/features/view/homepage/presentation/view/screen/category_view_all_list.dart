@@ -27,7 +27,6 @@ class CategoryViewAllList extends StatelessWidget {
       appBar: CommonCustomAppBar(
         appbarTitle: "My Category",
         onTap: () {
-          // Get.toNamed(AppRoutes.addServicesScreen);
 
         },
         // icon: const Icon(Icons.add_box),
@@ -78,22 +77,23 @@ class CategoryViewAllList extends StatelessWidget {
                       children: controller.filteredCategories
                           .map((item) => GestureDetector(
                               onTap: () {
-                                controller.filteredSubCategories.value = controller.allSubCategories
-                                    .where((subCategory) => item.id.toString() == subCategory.categoryId)
-                                    .toList();
-
-                                // filteredSubCategories.value = List<Subcategory>.from(allSubCategories);
-                                Get.toNamed(AppRoutes.subCategoryList, arguments: {
-                                  'subCategory': item,
-                                },);
-
+                                controller.subCategoryListFunc(item);
+                                // controller.filteredSubCategories.value = List<Subcategory>.from(controller.allSubCategories);
+                                // controller.filteredSubCategories.value =
+                                //     List<Subcategory>.from(
+                                //         controller.allSubCategories);
+                                Get.toNamed(
+                                  AppRoutes.subCategoryList,
+                                  arguments: {
+                                    'subCategory': item,
+                                  },
+                                );
                               },
                               child: Card(
                                 color: Colors.white,
                                 elevation: 2,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)
-                                ),
+                                    borderRadius: BorderRadius.circular(5)),
                                 // decoration: BoxDecoration(
                                 //     borderRadius: BorderRadius.circular(5),
                                 //     color: Colors.grey.withOpacity(0.3),
@@ -149,10 +149,12 @@ class CategoryViewAllList extends StatelessWidget {
                                     Container(
                                         decoration: BoxDecoration(
                                             color: Colors.grey.withOpacity(0.1),
-                                            borderRadius: const BorderRadius.only(
-                                                bottomLeft: Radius.circular(5),
-                                                bottomRight:
-                                                    Radius.circular(5))),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(5),
+                                                    bottomRight:
+                                                        Radius.circular(5))),
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5, vertical: 5),
                                         width:
