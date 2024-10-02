@@ -20,6 +20,8 @@ class NetworkConfiguration {
   static const String mySlotsList = "myslots";
   static const String serviceProductStore = "serviceproducts/store";
   static const String storeProfile = "storeprofiles/store";
+  static const String storeProfileGet = "storeprofiles/";
+  static const String storeProfileUpdate = "storeprofiles/";
   static const int success = 0;
   static const String successs = "Status.success";
   static const int error = 1;

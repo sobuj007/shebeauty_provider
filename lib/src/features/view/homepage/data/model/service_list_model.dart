@@ -32,7 +32,7 @@ class Data {
   String? bodypartId;
   String? cityId;
   String? locationIds;
-  Null? slotId;
+  var slotId;
   String? appointmentSlotIds;
   String? name;
   String? description;

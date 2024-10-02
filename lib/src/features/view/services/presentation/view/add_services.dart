@@ -152,7 +152,7 @@ class AddServicesScreen extends StatelessWidget {
                              homeController.isLoadingAppointmentSlot.value == true ? const Center(
                                child: CircularProgressIndicator(),
                              ) :  Visibility(
-                                  visible: homeController.selectedTimeSlot?.id == null
+                                  visible: homeController.selectedTimeSlot?.id == 0
                                       ? false
                                       : true,
                                   child: ListView.builder(

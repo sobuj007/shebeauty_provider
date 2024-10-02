@@ -4,6 +4,7 @@ import 'package:shebeauty_provider/src/core/di/app_component.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
 import 'package:shebeauty_provider/src/core/utils/app_assets.dart';
 import 'package:shebeauty_provider/src/features/view/homepage/presentation/controller/homepage_controller.dart';
+import 'package:shebeauty_provider/src/features/view/profile_screen/presentation/controller/profile_controller.dart';
 import 'package:shebeauty_provider/src/features/view/service_location/presentation/controller/service_location_controller.dart';
 import 'package:shebeauty_provider/src/features/view/services/presentation/controller/service_controller.dart';
 
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
    ProfileScreen({super.key});
 var serviceLocationController = locator<ServiceLocationController>(); 
 var homeController = locator<HomepageController>();
+var profileController = locator<ProfileController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +78,11 @@ var homeController = locator<HomepageController>();
               25.ph,
               CustomRow(icon: Icons.settings, menuName: "Profile Settings", onPress: (){Get.toNamed(AppRoutes.profileSetting);}),
               25.ph,
-              CustomRow(icon: Icons.settings, menuName: "My Services", onPress: (){Get.toNamed(AppRoutes.servicesScreen);}),
+              CustomRow(icon: Icons.settings, menuName: "My Services", onPress: (){
+                print("session.getToken ${session.getToken}");
+                homeController.serviceProductFunction();
+                profileController.storeProfileGetFunction();
+                Get.toNamed(AppRoutes.servicesScreen);}),
               25.ph,
               // CustomRowImage(
               //     image: AppAssets.location, menuName: "My Time Slots", onPress: (){Get.toNamed(AppRoutes.mySlotsScreen);}),

@@ -205,10 +205,11 @@ class ProfileSettingScreen extends StatelessWidget {
                                             CommonTextfieldWidget(
                                               hintText: "Enter store name",
                                               controller:
-                                                  controller.ownerNameController.value,
+                                                  controller.storeNameController.value,
                                               labelText: "Store Name",
                                               keyboardType: TextInputType.text,
                                               obscureText: false,
+                                              readOnly: (controller.storeProfileGet.value.profiles?.first.storename?.isEmpty ?? false) ? false : true,
                                             ),
                                             15.ph,
                                             CommonTextfieldWidget(
@@ -218,6 +219,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                               labelText: "Mobile Number",
                                               keyboardType: TextInputType.phone,
                                               obscureText: false,
+                                              readOnly: (controller.storeProfileGet.value.profiles?.first.mobile?.isEmpty ?? false) ? false : true,
                                             ),
                                             15.ph,
                                             // CommonTextfieldWidget(
@@ -235,7 +237,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                               labelText: "Trade license",
                                               keyboardType: TextInputType.number,
                                               obscureText: false,
-
+                                              readOnly: (controller.storeProfileGet.value.profiles?.first.tradelicence?.isEmpty ?? false) ? false : true,
                                             ),
                                             15.ph,
                                             CommonTextfieldWidget(
@@ -245,6 +247,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                               labelText: "Address",
                                               keyboardType: TextInputType.text,
                                               obscureText: false,
+                                              readOnly: (controller.storeProfileGet.value.profiles?.first.address?.isEmpty ?? false) ? false : true,
                                             ),
                                             // 15.ph,
                                             // CommonTextfieldWidget(
@@ -317,7 +320,7 @@ class ProfileSettingScreen extends StatelessWidget {
                                                   homeController.cityList.first,
                                             ),
                                             Visibility(
-                                                visible: homeController.selectedCity?.id == 0
+                                                visible: homeController.selectedCity?.id == 0 &&  (controller.storeProfileGet.value.profiles?.first.locationIds?.isEmpty ?? false)
                                                     ? false
                                                     : true,
                                                 child: ListView.builder(
@@ -356,10 +359,14 @@ class ProfileSettingScreen extends StatelessWidget {
                                                     color: Colors.black12,
                                                     borderRadiusValue: 5,
                                                     onPress: () {
+                                                      if(controller.storeProfileGet.value.profiles?.isEmpty ?? false){
                                                       controller.addStoreProfile(context);
+                                                      }else{
+
+                                                      }
                                                     },
                                                     text:  CustomText(
-                                                      text: "Upload BIO",
+                                                      text: (controller.storeProfileGet.value.profiles?.isEmpty ?? false) ? "Upload BIO" : "Edit BIO",
                                                       fontWeight: FontWeight.w400,
                                                       fontSize: 13,
                                                       letterSpacing: 0.25,

@@ -8,7 +8,7 @@ import '../routes/AppRouts.dart';
 
 class SessionManager {
   Future<bool> createSession(LoginModel? loginModelData, {String? email,  String? password}) async {
-    print("this is session ${loginModelData?.token}");
+    print(" ${loginModelData?.token}");
     try {
         setToken = loginModelData?.token;
         setPassword = password;
@@ -16,6 +16,7 @@ class SessionManager {
         setFullName = loginModelData?.user?.name;
         setPhoto = loginModelData?.profile?.img;
         setId = loginModelData?.profile?.userId;
+
       return true;
     } catch (e) {
       return false;
@@ -77,6 +78,11 @@ set setBaseUrl(String? value)=> _prefManager.saveString("baseUrl", value);
       _prefManager.getStringValue("deviceId");
   set setDeviceId(String? value) => _prefManager.saveString(
       "deviceId", value ?? "");
+
+  bool? get getRememberMe =>
+      _prefManager.getBoolValue("remember");
+  set setRememberMe(bool? value) => _prefManager.saveBoolean(
+      "remember", value ?? false);
 
   Future<bool> logout() async {
     bool response = false;

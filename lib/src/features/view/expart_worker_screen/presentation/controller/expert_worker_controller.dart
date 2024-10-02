@@ -48,14 +48,7 @@ class ExpertWorkerController extends GetxController{
         isLoading.value = true;
         ExpartCreatePassUseCase expartCreatePassUseCase =
         ExpartCreatePassUseCase(locator<ExpartCreateRepository>());
-  //       var formData = {
-  //         "name": workerNameController.value.text,
-  //         "profile_image": await d.MultipartFile.fromFile(
-  // path,
-  // filename: fileName,
-  // ),
 
-        // };
         print("this is token ${session.getToken}");
         d.FormData formData = d.FormData.fromMap({
           "name": workerNameController.value.text,

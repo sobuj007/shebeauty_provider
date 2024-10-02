@@ -382,7 +382,7 @@ class HomepageController extends GetxController {
         print(
             "service product model ${serviceProductModel.value.data?.first.name}");
       } else {
-        print("this is value");
+        print("this is SERVICE PRODUCT");
       }
     } catch (e) {
       print(e.toString());
@@ -426,7 +426,7 @@ class HomepageController extends GetxController {
         reviewModel.value = response?.data ?? ReviewModel();
         print("review Model ${reviewModel.value.reviews?.first.comment}");
       } else {
-        print("this is value");
+        print("this is review");
       }
     } catch (e) {
       print(e.toString());
@@ -527,24 +527,4 @@ class HomepageController extends GetxController {
     }
   }
 
-  final List<Map<String, String>> cardList = [
-    {
-      'image':
-          'https://i.pinimg.com/550x/92/dc/1b/92dc1b3063e2cd03df8c48437b7a2e4e.jpg',
-      'name': 'John Doe',
-      'description': 'This is the first card description'
-    },
-    {
-      'image':
-          'https://i.pinimg.com/550x/92/dc/1b/92dc1b3063e2cd03df8c48437b7a2e4e.jpg',
-      'name': 'Jane Smith',
-      'description': 'This is the second card description'
-    },
-    {
-      'image':
-          'https://i.pinimg.com/550x/92/dc/1b/92dc1b3063e2cd03df8c48437b7a2e4e.jpg',
-      'name': 'Bob Johnson',
-      'description': 'This is the third card description'
-    },
-  ];
 }

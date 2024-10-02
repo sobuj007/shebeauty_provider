@@ -183,6 +183,7 @@ class GetAllProductService {
   }
   Future<Response<ReviewModel>?> review() async {
     Response<ReviewModel>? apiResponse;
+    print("session.getId ${session.getId}");
     await _dioClient.get(
       path: "${NetworkConfiguration.review}${session.getId}",
       responseCallback: (response, message) {

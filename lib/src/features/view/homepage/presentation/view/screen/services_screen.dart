@@ -133,7 +133,11 @@ class ServicesScreen extends StatelessWidget {
                         icon: Icons.add_box_sharp),
                     10.ph,
                     Expanded(
-                      child: ListView.builder(
+                      child: controller.isLoadingServiceProducts.value == true ? const Center(
+                        child: CircularProgressIndicator(),
+                      ) : controller.serviceProductModel.value.data?.isEmpty ?? false? const Center(
+                        child: CustomText(text: "No Data Available"),
+                      ) : ListView.builder(
                         itemCount: controller.serviceProductModel.value.data?.length,
                         itemBuilder: (_, index) {
                           var item = controller.serviceProductModel.value.data?[index];

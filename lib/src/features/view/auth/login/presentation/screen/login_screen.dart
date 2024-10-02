@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shebeauty_provider/src/core/extensions/extensions.dart';
+import 'package:shebeauty_provider/src/core/source/dio_client.dart';
 import 'package:shebeauty_provider/src/features/widgets/custom_text/custom_text.dart';
 import '../../../../../../core/di/app_component.dart';
 import '../../../../../../core/routes/AppRouts.dart';
@@ -68,6 +69,7 @@ class LoginScreen extends StatelessWidget {
                                 value: controller.rememberMe.value,
                                 onChanged: (value) {
                                   controller.rememberMe.value = value!;
+                                  session.setRememberMe = value;
                                 },
                               ),
                               const CustomText(text: "Remember Me")

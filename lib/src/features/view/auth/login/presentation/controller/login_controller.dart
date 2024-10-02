@@ -10,8 +10,8 @@ import '../../domain/repository/login_repository.dart';
 import '../../domain/usecase/login_with_id_pass_usecase.dart';
 
 class LoginController extends GetxController{
-  var emailController = TextEditingController().obs;
-  var passwordController = TextEditingController().obs;
+  var emailController = TextEditingController(text: "agent@gmail.com").obs;
+  var passwordController = TextEditingController(text: "password").obs;
   var emailVisibility = false.obs;
   var passwordVisibility = true.obs;
   var confirmPasswordVisibility = false.obs;
@@ -36,7 +36,7 @@ class LoginController extends GetxController{
         print("this is data of login ${response?.data?.token}");
         if (response?.data != null) {
           loginModel.value = response?.data ?? LoginModel() ;
-          if(rememberMe.value == true){
+          if(session.getRememberMe == true){
             session.createSession(response?.data,
                 email: emailController.value.text,
                 password: passwordController.value.text);

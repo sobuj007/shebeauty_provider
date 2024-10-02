@@ -124,9 +124,9 @@ class ServiceController extends GetxController {
       errorToast(context: context, msg: "Please select gender");
     }
     else{
-     // try{
+     try{
        print("is clicked11");
-       // isDataSubmited.value = true;
+       isDataSubmited.value = true;
        ServicePassUseCase servicePassUseCase =
        ServicePassUseCase(locator<ServiceRepository>());
        var formData =     {
@@ -151,12 +151,12 @@ class ServiceController extends GetxController {
        } else {
          print("this is value");
        }
-     // }catch(e){
-     //   print(e);
-     //   isDataSubmited.value = false;
-     // }finally{
-     //   isDataSubmited.value = false;
-     // }
+     }catch(e){
+       print(e);
+       isDataSubmited.value = false;
+     }finally{
+       isDataSubmited.value = false;
+     }
     }
   }
 
